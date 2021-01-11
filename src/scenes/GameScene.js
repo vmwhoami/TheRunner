@@ -8,7 +8,9 @@ class GameScene extends Scene {
 
   create() {
     // Add, scale, and make up a speed for our creature
+
     this.cat = this.physics.add.sprite(50, 240, 'cat');
+
     this.cat.body.setAllowGravity(false);
     this.cat.setScale(0.6);
     this.catSpeed = 100;
