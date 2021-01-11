@@ -8,7 +8,8 @@ class BootScene extends Scene {
   preload() {
     // Load any assets here from your assets directory
     this.load.image('cat', 'assets/cat-like-creature.png');
-    this.load.image('sky', 'assets/sky.jpg')
+    this.load.image('sky', 'assets/cartoonsky.png')
+
   }
 
   create() {

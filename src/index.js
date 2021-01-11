@@ -6,8 +6,9 @@ import GameScene from './scenes/GameScene';
 
 const canvas = document.getElementById('game-canvas');
 const config = {
+
   type: Phaser.AUTO,
-  width: 900,
+  width: 800,
   height: 600,
   canvas,
   physics: {
