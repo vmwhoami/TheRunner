@@ -8,10 +8,10 @@ class GameScene extends Scene {
 
   create() {
     // Add, scale, and make up a speed for our creature
-    this.cat = this.physics.add.sprite(10, 10, 'cat-like');
+    this.cat = this.physics.add.sprite(50, 240, 'cat');
     this.cat.body.setAllowGravity(false);
-    this.cat.setScale(0.5);
-    this.catSpeed = 300;
+    this.cat.setScale(0.6);
+    this.catSpeed = 100;
     // Create a helper object for our arrow keys
     this.cursors = this.input.keyboard.createCursorKeys();
   }
