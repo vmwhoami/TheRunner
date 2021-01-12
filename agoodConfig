@@ -1,9 +1,6 @@
-import Phaser from 'phaser';
-
-const cont = document.querySelector('.container')
-export default {
+const config = {
   type: Phaser.AUTO,
-  width: 500,
+  width: 800,
   height: 500,
   backgroundColor: "c34111",
   parent: cont,
@@ -13,8 +10,7 @@ export default {
     default: 'arcade',
     arcade: {
       gravity: {
-        x: -300,
-        y: 300
+
       },
       enableBody: true,
       debug: true
@@ -27,3 +23,8 @@ export default {
   }
 }
 
+const game = new Phaser.Game(config)
+
+
+//sets the colider so it won't go over the world
+gameState.codey.setCollideWorldBounds(true);
