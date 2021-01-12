@@ -23,12 +23,14 @@ function create() {
 
 function update() {
 }
+const cont = document.querySelector('.container')
 
 const config = {
   type: Phaser.AUTO,
   width: 500,
   height: 500,
   backgroundColor: "c34111",
+  parent: cont,
   autoCenter: 1,
   scaleMode: 3,
   physics: {
