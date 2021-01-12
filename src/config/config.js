@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
+import GameScene from '../scenes/GameScene';
 
 const cont = document.querySelector('.container')
-export default {
+const config = {
   type: Phaser.AUTO,
   width: 500,
   height: 500,
@@ -13,17 +14,14 @@ export default {
     default: 'arcade',
     arcade: {
       gravity: {
-        x: -300,
-        y: 300
+
+        y: 800
       },
       enableBody: true,
       debug: true
     }
   },
-  scene: {
-    preload,
-    create,
-    update
-  }
+  scene: [GameScene]
 }
 
+export default config;
