@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 const gameState = {
-
+  score: 0,
 }
 class GameScene extends Phaser.Scene {
   constructor() {

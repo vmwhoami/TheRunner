@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
 
 const cont = document.querySelector('.container')
@@ -21,7 +22,7 @@ const config = {
       debug: true
     }
   },
-  scene: [GameScene]
+  scene: [BootScene, GameScene]
 }
 
 export default config;
