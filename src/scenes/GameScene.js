@@ -14,13 +14,36 @@ export default class GameScene extends Scene {
   }
 
   preload() {
-    this.load.image("platform", "assets/groundGrass.png");
-    this.load.image("player", "assets/player.png");
+    this.load.image("bg", "assets/cartoonsky.png");
+
+    this.load.image('platform', 'assets/ground_grass.png')
+    // this.load.spritesheet("player", "assets/player.png", 37, 45, 18);
   }
   create() {
 
-    // this.add.sprite(20, 20, 'player')
-    // group with all active platforms.
+    let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'bg')
+    let scaleX = this.cameras.main.width / image.width
+    let scaleY = this.cameras.main.height / image.height
+    let scale = Math.max(scaleX, scaleY)
+    image.setScale(scale).setScrollFactor(0)
+
+
+
+
+    const platforms = this.physics.add.staticGroup()
+
+    for (let i = 0; i < 4; ++i) {
+      const x = Phaser.Math.Between(100, 800)
+      const y = 560
+      const platform = platforms.create(x, y, 'platform')
+      platform.setScale(x, .5)
+      const body = platform.body
+      body.updateFromGameObject()
+    }
+
+
+
+    // group with all active platorms.
     // this.platformGroup = this.add.group({
 
     //   // once a platform is removed, it's added to the pool
