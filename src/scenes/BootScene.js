@@ -6,9 +6,13 @@ class BootScene extends Phaser.Scene {
     super({ key: "BootScene" })
   }
 
-  preload() { }
+  preload() {
+    this.load.image('startbg', 'assets/startGameImg.jpg')
+  }
 
   create() {
+    this.add.image(450, 300, 'startbg')
+
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
     const loadingText = this.add.text(screenCenterX, screenCenterY, 'Loading: 20%').setOrigin(0.5);
