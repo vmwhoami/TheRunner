@@ -1,80 +1,113 @@
-import Phaser from 'phaser';
+import { Scene } from 'phaser';
+import gameOptions from '../jslogic/gameOptions'
 
+import config from '../config/config';
 const gameState = {
   score: 0,
 }
-export default class GameScene extends Phaser.Scene {
+
+
+
+export default class GameScene extends Scene {
   constructor() {
-    super({ key: "GameScene" })
+    super({ key: "GameScene" });
   }
+
   preload() {
-    this.load.image('bug1', 'https://content.codecademy.com/courses/learn-phaser/physics/bug_1.png');
-    this.load.image('bug2', 'https://content.codecademy.com/courses/learn-phaser/physics/bug_2.png');
-    this.load.image('bug3', 'https://content.codecademy.com/courses/learn-phaser/physics/bug_3.png');
-    this.load.image('platform', 'https://content.codecademy.com/courses/learn-phaser/physics/platform.png');
-    this.load.image('codey', 'https://content.codecademy.com/courses/learn-phaser/physics/codey.png');
+    this.load.image("platform", "assets/groundGrass.png");
+    this.load.image("player", "assets/player.png");
   }
-
   create() {
-    gameState.player = this.physics.add.sprite(225, 200, 'codey').setScale(.5);
 
-    const platforms = this.physics.add.staticGroup();
+    // this.add.sprite(20, 20, 'player')
+    // group with all active platforms.
+    // this.platformGroup = this.add.group({
 
-    platforms.create(225, 400, 'platform')
+    //   // once a platform is removed, it's added to the pool
+    //   removeCallback: function (platform) {
+    //     platform.scene.platformPool.add(platform)
+    //   }
+    // });
 
-    gameState.player.setCollideWorldBounds(true);
+    // // pool
+    // this.platformPool = this.add.group({
 
-    this.physics.add.collider(gameState.player, platforms);
+    //   //   // once a platform is removed from the pool, it's added to the active platforms group
+    //   removeCallback: function (platform) {
+    //     platform.scene.platformGroup.add(platform)
+    //   }
+    // });
 
-    gameState.cursors = this.input.keyboard.createCursorKeys();
+    // // number of consecutive jumps made by the player
+    // this.playerJumps = 0;
 
-    const bugs = this.physics.add.group();
+    // // adding a platform to the game, the arguments are platform width and x position
+    // this.addPlatform(this.width, this.width / 2);
 
-    function bugGen() {
-      const xCoord = Math.random() * 800;
-      bugs.create(xCoord, 10, 'bug3');
-    }
+    // // adding the player;
+    // this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height / 2, "player");
+    // this.player.setGravityY(gameOptions.playerGravity);
 
+    // setting collisions between the player and the platform group
+    // this.physics.add.collider(this.player, this.platformGroup);
 
-    const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-    const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
-    // const loadingText = this.add.text(screenCenterX, screenCenterY, 'Loading: 0%').setOrigin(0.5);
-
-    gameState.scoreText = this.add.text(screenCenterX, 480, 'Score: 0', { fontSize: '15px', fill: '#000000' }).setOrigin(0.5, 0.5).setOrigin(0.5);
-
-    let bugGenLoop = this.time.addEvent({
-      delay: 150,
-      callback: bugGen,
-      callbackScope: this,
-      loop: true
-    })
-    this.physics.add.collider(bugs, platforms, function (bug) {
-      bug.destroy()
-      gameState.score += 1
-      gameState.scoreText.setText(`Score: ${gameState.score}`)
-    })
-
-    this.physics.add.collider(gameState.player, bugs, () => {
-      bugGenLoop.destroy()
-      this.physics.pause()
-      this.add.text(screenCenterX, screenCenterY, 'Game over', {
-        fontSize: '50px',
-        fill: '#000000'
-      }).setOrigin(0.5)
-    })
+    // checking for input
+    // this.input.on("pointerdown", this.jump, this);
   }
 
-  update() {
-    if (gameState.cursors.left.isDown) {
-      gameState.player.setVelocityX(-160);
-    } else if (gameState.cursors.right.isDown) {
-      gameState.player.setVelocityX(160);
-    } else if (gameState.cursors.up.isDown) {
-      gameState.player.setVelocityY(-100);
-    }
-    else {
-      gameState.player.setVelocityX(0);
-    }
-  }
-}
+  // the core of the script: platform are added from the pool or created on the fly
+  // addPlatform(platformWidth, posX) {
+  //   let platform;
+  //   if (this.platformPool.getLength()) {
+  //     platform = this.platformPool.getFirst();
+  //     platform.x = posX;
+  //     platform.active = true;
+  //     platform.visible = true;
+  //     this.platformPool.remove(platform);
+  //   }
+  //   else {
+  //     platform = this.physics.add.sprite(posX, game.config.height * 0.8, "platform");
+  //     platform.setImmovable(true);
+  //     platform.setVelocityX(gameOptions.platformStartSpeed * -1);
+  //     this.platformGroup.add(platform);
+  //   }
+  //   platform.displayWidth = platformWidth;
+  //   this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+  // }
 
+  // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
+  // jump() {
+  //   if (this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)) {
+  //     if (this.player.body.touching.down) {
+  //       this.playerJumps = 0;
+  //     }
+  //     this.player.setVelocityY(gameOptions.jumpForce * -1);
+  //     this.playerJumps++;
+  //   }
+  // }
+  // update() {
+
+  //   // game over
+  //   if (this.player.y > game.config.height) {
+  //     this.scene.start("GameScene");
+  //   }
+  //   this.player.x = gameOptions.playerStartPosition;
+
+  //   // recycling platforms
+  //   let minDistance = game.config.width;
+  //   this.platformGroup.getChildren().forEach(function (platform) {
+  //     let platformDistance = game.config.width - platform.x - platform.displayWidth / 2;
+  //     minDistance = Math.min(minDistance, platformDistance);
+  //     if (platform.x < - platform.displayWidth / 2) {
+  //       this.platformGroup.killAndHide(platform);
+  //       this.platformGroup.remove(platform);
+  //     }
+  //   }, this);
+
+  //   // adding new platforms
+  //   if (minDistance > this.nextPlatformDistance) {
+  //     var nextPlatformWidth = Phaser.Math.Between(gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1]);
+  //     this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2);
+  //   }
+  // }
+};
