@@ -5,8 +5,8 @@ import GameScene from '../scenes/GameScene';
 const cont = document.querySelector('.container')
 const config = {
   type: Phaser.AUTO,
-  width: 500,
-  height: 500,
+  width: 900,
+  height: 600,
   backgroundColor: "#5DACD8",
   parent: cont,
   autoCenter: 1,
