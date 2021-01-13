@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 const gameState = {
   score: 0,
 }
-class GameScene extends Phaser.Scene {
+export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: "GameScene" })
   }
@@ -78,4 +78,3 @@ class GameScene extends Phaser.Scene {
   }
 }
 
-export default GameScene;

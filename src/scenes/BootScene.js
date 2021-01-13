@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-// import GameScene from './GameScene';
 
-class BootScene extends Phaser.Scene {
+
+export default class BootScene extends Phaser.Scene {
   constructor() {
     super({ key: "BootScene" })
   }
@@ -11,7 +11,16 @@ class BootScene extends Phaser.Scene {
   }
 
   create() {
+    let centerText = (text, offset) => {
+      const x = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+      const y = this.cameras.main.worldView.y + this.cameras.main.height / 2 + offset;
+      const loadingText = this.add.text(x, y, text).setOrigin(0.5);
+    }
+
     this.add.image(450, 300, 'startbg')
+    centerText('The Runner', -150)
+
+    // this.add.text(450, 300, "this is the text")
 
     const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
@@ -29,4 +38,3 @@ class BootScene extends Phaser.Scene {
 
 
 
-export default BootScene;
