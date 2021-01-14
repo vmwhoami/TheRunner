@@ -21,7 +21,7 @@ const config = {
       debug: true
     }
   },
-  scene: [GameScene]
+  scene: [BootScene, GameScene]
 }
 
 export default config;

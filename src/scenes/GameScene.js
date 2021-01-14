@@ -17,7 +17,8 @@ export default class GameScene extends Scene {
     this.load.image("bg", "assets/cartoonsky.png");
 
     this.load.image('platform', 'assets/ground_grass.png')
-    // this.load.spritesheet("player", "assets/player.png", 37, 45, 18);
+    this.load.atlas('runner', 'assets/character/runner.png',
+      'assets/character/runner.json')
   }
   create() {
 
@@ -26,6 +27,21 @@ export default class GameScene extends Scene {
     let scaleY = this.cameras.main.height / image.height
     let scale = Math.max(scaleX, scaleY)
     image.setScale(scale).setScrollFactor(0)
+
+
+    this.anims.create({
+      key: 'runner', // name of this animation
+      // helper to generate frames
+      frames: this.anims.generateFrameNames('runner', {
+        start: 1,
+        end: 6,
+        prefix: 'runner',
+        zeroPad: 2,
+        suffix: '.png'
+      }),
+      frameRate: 16,
+      repeat: -1 // -1 to loop forever
+    })
 
 
 
@@ -40,6 +56,17 @@ export default class GameScene extends Scene {
       const body = platform.body
       body.updateFromGameObject()
     }
+
+
+    const width = this.scale.width
+    const height = this.scale.height
+
+    this.add.sprite(
+      width * 0.2, // middle of screen
+      height * 0.8,
+      'runner', // atlas key given in preload()
+      'runner01.png'
+    ).play('runner')
 
 
 

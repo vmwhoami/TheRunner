@@ -6,7 +6,7 @@ import config from './config/config';
 const game = new Phaser.Game(config);
 // let game;
 
-// // global game options
+// global game options
 // let gameOptions = {
 //   platformStartSpeed: 350,
 //   spawnRange: [100, 350],
