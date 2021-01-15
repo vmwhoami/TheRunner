@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-
+import playerName from '../jslogic/playerName';
 
 export default class BootScene extends Scene {
   constructor() {
@@ -17,7 +17,7 @@ export default class BootScene extends Scene {
   }
 
   create() {
-    this.nameInput = this.add.dom(640, 360).createFromCache("form").setOrigin(0.5);
+    // this.nameInput = this.add.dom(640, 360).createFromCache("form")
     let centerText = (text, offset) => {
       const x = this.cameras.main.worldView.x + this.cameras.main.width / 2;
       const y = this.cameras.main.worldView.y + this.cameras.main.height / 2 + offset;
@@ -43,6 +43,16 @@ export default class BootScene extends Scene {
       repeat: -1 // -1 to loop forever
     })
 
+    playerName(this)
+
+    // this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+    // this.returnKey.on("down", event => {
+    //   let name = this.nameInput.getChildByName("name");
+    //   if (name.value != "") {
+    //     this.scene.start("GameScene");
+    //   }
+    // });
 
     this.input.on('pointerup', () => {
       this.scene.start("GameScene");
