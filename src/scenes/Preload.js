@@ -30,7 +30,7 @@ export default class Preload extends Phaser.Scene {
       frameRate: 20,
       repeat: -1 // -1 to loop forever
     })
-    this.scene.start("Bootscene");
+    this.scene.start("GameScene");
   }
 
 }
