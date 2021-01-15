@@ -32,35 +32,31 @@ export default class GameScene extends Scene {
     // this.add.tileSprite(0, 0, width, height, 'bg').setOrigin(0)
 
 
+    // const platforms = this.physics.add.staticGroup()
+
+    // for (let i = 0; i < 4; ++i) {
+    //   const x = Phaser.Math.Between(100, 800)
+    //   const y = 560
+    //   const platform = platforms.create(x, y, 'platform')
+    //   platform.setScale(x, .5)
+    //   const body = platform.body
+    //   body.updateFromGameObject()
+    // }
 
 
 
-    const platforms = this.physics.add.staticGroup()
-
-    for (let i = 0; i < 4; ++i) {
-      const x = Phaser.Math.Between(100, 800)
-      const y = 560
-      const platform = platforms.create(x, y, 'platform')
-      platform.setScale(x, .5)
-      const body = platform.body
-      body.updateFromGameObject()
-    }
-
-
-
-    const runner = this.physics.add.sprite(
+    gameState.runner = this.physics.add.sprite(
       width * 0.2,
       height * 0.3,
       'runner', // atlas key given in preload()
       'runner01.png'
     ).play('runner')
 
-    runner.setBounce(0.2);
-    runner.setCollideWorldBounds(true)
+    gameState.runner.setBounce(0.2);
+    gameState.runner.setCollideWorldBounds(true)
 
 
 
-    this.physics.add.collider(runner, platforms)
     // group with all active platorms.
     this.platformGroup = this.add.group({
 
@@ -71,19 +67,19 @@ export default class GameScene extends Scene {
     });
 
     // // pool
-    // this.platformPool = this.add.group({
+    this.platformPool = this.add.group({
 
-    //   //   // once a platform is removed from the pool, it's added to the active platforms group
-    //   removeCallback: function (platform) {
-    //     platform.scene.platformGroup.add(platform)
-    //   }
-    // });
+      //   // once a platform is removed from the pool, it's added to the active platforms group
+      removeCallback: function (platform) {
+        platform.scene.platformGroup.add(platform)
+      }
+    });
 
     // // number of consecutive jumps made by the player
-    // this.playerJumps = 0;
+    this.playerJumps = 0;
 
     // // adding a platform to the game, the arguments are platform width and x position
-    // this.addPlatform(this.width, this.width / 2);
+    this.addPlatform(this.width, this.width / 2);
 
     // // adding the player;
     // this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height / 2, "player");
@@ -97,25 +93,25 @@ export default class GameScene extends Scene {
   }
 
   // the core of the script: platform are added from the pool or created on the fly
-  // addPlatform(platformWidth, posX) {
-  //   let platform;
-  //   if (this.platformPool.getLength()) {
-  //     platform = this.platformPool.getFirst();
-  //     platform.x = posX;
-  //     platform.active = true;
-  //     platform.visible = true;
-  //     this.platformPool.remove(platform);
-  //   }
-  //   else {
-  //     platform = this.physics.add.sprite(posX, game.config.height * 0.8, "platform");
-  //     platform.setImmovable(true);
-  //     platform.setVelocityX(gameOptions.platformStartSpeed * -1);
-  //     this.platformGroup.add(platform);
-  //   }
-  //   platform.displayWidth = platformWidth;
-  //   this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
-  // }
-
+  addPlatform(platformWidth, posX) {
+    let platform;
+    if (this.platformPool.getLength()) {
+      platform = this.platformPool.getFirst();
+      platform.x = posX;
+      platform.active = true;
+      platform.visible = true;
+      this.platformPool.remove(platform);
+    }
+    else {
+      platform = this.physics.add.sprite(posX, this.scale.height * 0.8, "platform");
+      platform.setImmovable(true);
+      platform.setVelocityX(gameOptions.platformStartSpeed * -1);
+      this.platformGroup.add(platform);
+    }
+    platform.displayWidth = platformWidth;
+    this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+  }
+  ;
   // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   // jump() {
   //   if (this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps)) {

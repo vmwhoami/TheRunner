@@ -6,7 +6,9 @@ import gameOptions from './jslogic/gameOptions';
 const gam = new Phaser.Game(config);
 let game
 
-
+const gameState = {
+  score: 0,
+}
 window.onload = function () {
 
   // object containing configuration options
@@ -19,7 +21,9 @@ window.onload = function () {
 
     // physics settings
     physics: {
-      default: "arcade"
+      default: "arcade",
+      debug: true
+
     }
   }
   game = new Phaser.Game(gameConfig);
@@ -37,10 +41,6 @@ class preloadGame extends Phaser.Scene {
     this.load.image("platform", "assets/ground_grass.png");
 
     // player is a sprite sheet made by 24x48 pixels
-    this.load.spritesheet("player", "assets/player.png", {
-      frameWidth: 24,
-      frameHeight: 48
-    });
 
 
     this.load.atlas('runner', 'assets/character/runner.png', 'assets/character/runner.json')
@@ -65,15 +65,7 @@ class preloadGame extends Phaser.Scene {
   create() {
 
     // // setting player animation
-    this.anims.create({
-      key: "run",
-      frames: this.anims.generateFrameNumbers("player", {
-        start: 0,
-        end: 1
-      }),
-      frameRate: 8,
-      repeat: -1
-    });
+
 
     this.anims.create({
       key: 'runner', // name of this animation
@@ -124,7 +116,7 @@ class playGame extends Phaser.Scene {
   create() {
 
     // group with all active mountains.
-    this.mountainGroup = this.add.group();
+    gameState.mountainGroup = this.add.group();
 
     // group with all active platforms.
     this.platformGroup = this.add.group({
@@ -268,7 +260,7 @@ class playGame extends Phaser.Scene {
       let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), "mountain");
       mountain.setOrigin(0.5, 1);
       mountain.body.setVelocityX(gameOptions.mountainSpeed * -1)
-      this.mountainGroup.add(mountain);
+      gameState.mountainGroup.add(mountain);
       if (Phaser.Math.Between(0, 1)) {
         mountain.setDepth(1);
       }
@@ -280,7 +272,7 @@ class playGame extends Phaser.Scene {
   // getting rightmost mountain x position
   getRightmostMountain() {
     let rightmostMountain = -200;
-    this.mountainGroup.getChildren().forEach(function (mountain) {
+    gameState.mountainGroup.getChildren().forEach(function (mountain) {
       rightmostMountain = Math.max(rightmostMountain, mountain.x);
     })
     return rightmostMountain;
@@ -415,7 +407,7 @@ class playGame extends Phaser.Scene {
     }, this);
 
     // recycling mountains
-    this.mountainGroup.getChildren().forEach(function (mountain) {
+    gameState.mountainGroup.getChildren().forEach(function (mountain) {
       if (mountain.x < - mountain.displayWidth) {
         let rightmostMountain = this.getRightmostMountain();
         mountain.x = rightmostMountain + Phaser.Math.Between(100, 350);
