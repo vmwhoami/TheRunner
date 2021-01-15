@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import playerName from '../jslogic/playerName';
+import placeImg from '../jslogic/placeImg';
 
 export default class BootScene extends Scene {
   constructor() {
@@ -19,14 +20,9 @@ export default class BootScene extends Scene {
 
   create() {
 
-    let placeObject = (context, obj, offset) => {
-      const x = context.cameras.main.worldView.x + context.cameras.main.width / 2;
-      const y = context.cameras.main.worldView.y + context.cameras.main.height / 2 + offset;
-      context.add.image(x, y, obj).setOrigin(0.5);
-    }
 
-    placeObject(this, 'startbg', 0)
-    placeObject(this, 'runnertxt', -200)
+    placeImg(this, 'startbg', 0)
+    placeImg(this, 'runnertxt', -200)
 
 
     this.anims.create({

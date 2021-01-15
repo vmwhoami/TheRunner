@@ -1,7 +1,6 @@
 import { Scene } from 'phaser';
 import gameOptions from '../jslogic/gameOptions'
 
-import config from '../config/config';
 const gameState = {
   score: 0,
 }
