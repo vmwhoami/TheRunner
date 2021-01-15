@@ -1,4 +1,4 @@
-
+import localSetter from './localSetter'
 const playerName = (context) => {
   const x = context.cameras.main.worldView.x + context.cameras.main.width / 2;
   const y = context.cameras.main.worldView.y + context.cameras.main.height / 2;
@@ -8,6 +8,8 @@ const playerName = (context) => {
   context.returnKey.on("down", event => {
     let name = context.nameInput.getChildByName("name");
     if (name.value != "") {
+      localSetter(name.value)
+
       context.scene.start("Preload");
     }
   });

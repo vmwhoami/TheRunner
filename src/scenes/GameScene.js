@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import localGetter from '../jslogic/localGetter';
 import gameOptions from '../jslogic/gameOptions';
 import jump from '../jslogic/playerJump';
 
@@ -16,6 +17,8 @@ export default class GameScene extends Scene {
   }
   create() {
 
+    gameState.name = localGetter()
+    console.log(gameState);
     // group with all active mountains.
     gameState.mountainGroup = this.add.group();
 
@@ -87,14 +90,13 @@ export default class GameScene extends Scene {
     this.addPlatform(this.scale.width, this.scale.width / 2, this.scale.height * gameOptions.platformVerticalLimit[1]);
 
 
-
-    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.50, "runner")
+    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.1, "runner")
     this.runner.setDepth(2)
     this.runner.setGravityY(gameOptions.playerGravity)
 
 
     // the player is not dying
-    this.dying = false;
+    gameState.dying = false;
 
     // setting collisions between the player and the platform group
     this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
@@ -135,7 +137,7 @@ export default class GameScene extends Scene {
     // setting collisions between the player and the fire group
     this.physics.add.overlap(this.runner, this.fireGroup, function (player, fire) {
 
-      this.dying = true;
+      gameState.dying = true;
       this.runner.anims.stop();
       this.runner.setFrame(2);
       this.runner.body.setVelocityY(-200);
@@ -188,7 +190,7 @@ export default class GameScene extends Scene {
       platform.tileScaleX = 1 / platform.scaleX;
     }
     else {
-      platform = this.add.tileSprite(posX, posY, platformWidth, 32, "platform");
+      platform = this.add.tileSprite(posX, posY, platformWidth, 90, "platform");
       this.physics.add.existing(platform);
       platform.body.setImmovable(true);
       platform.body.setVelocityX(Phaser.Math.Between(gameOptions.platformSpeedRange[0], gameOptions.platformSpeedRange[1]) * -1);
@@ -248,7 +250,7 @@ export default class GameScene extends Scene {
   // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   // and obviously if the player is not dying
   jump() {
-    if ((!this.dying) && (this.runner.body.touching.down || (this.runnerJumps > 0 && this.runnerJumps < gameOptions.jumps))) {
+    if ((!gameState.dying) && (this.runner.body.touching.down || (this.runnerJumps > 0 && this.runnerJumps < gameOptions.jumps))) {
       if (this.runner.body.touching.down) {
         this.runnerJumps = 0;
       }
@@ -256,7 +258,8 @@ export default class GameScene extends Scene {
       this.runnerJumps++;
 
       // stops animation
-      this.runner.anims.play("jumper");
+      this.runner.anims.stop();
+
     }
   }
 
