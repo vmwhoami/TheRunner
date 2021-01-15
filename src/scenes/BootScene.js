@@ -47,9 +47,7 @@ export default class BootScene extends Scene {
     playerName(this)
 
 
-    // this.input.on('pointerup', () => {
-    //   this.scene.start("GameScene");
-    // })
+
 
   }
   update() { }
