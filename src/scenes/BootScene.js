@@ -13,9 +13,11 @@ export default class BootScene extends Scene {
     this.load.image('platform', 'assets/ground_grass.png')
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json')
+    this.load.html("form", "assets/form.html");
   }
 
   create() {
+    this.nameInput = this.add.dom(640, 360).createFromCache("form").setOrigin(0.5);
     let centerText = (text, offset) => {
       const x = this.cameras.main.worldView.x + this.cameras.main.width / 2;
       const y = this.cameras.main.worldView.y + this.cameras.main.height / 2 + offset;

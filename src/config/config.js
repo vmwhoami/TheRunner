@@ -12,6 +12,9 @@ const config = {
   parent: cont,
   autoCenter: 1,
   scaleMode: 3,
+  dom: {
+    createContainer: true
+  },
   physics: {
     default: 'arcade',
     arcade: {
@@ -22,7 +25,7 @@ const config = {
       debug: true
     }
   },
-  scene: [Preload, BootScene, GameScene]
+  scene: [BootScene, GameScene]
 }
 
 export default config;
