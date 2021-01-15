@@ -28,7 +28,7 @@ let gameOptions = {
   jumpForce: 400,
 
   // player starting X position
-  playerStartPosition: 200,
+  playerStartPosition: 100,
 
   // consecutive jumps allowed
   jumps: 2,
