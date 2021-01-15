@@ -3,10 +3,8 @@ import Phaser from 'phaser';
 import config from './config/config';
 import gameOptions from './jslogic/gameOptions';
 
-// const game = new Phaser.Game(config);
+const gam = new Phaser.Game(config);
 let game
-
-
 
 
 window.onload = function () {
@@ -36,7 +34,7 @@ class preloadGame extends Phaser.Scene {
     super("PreloadGame");
   }
   preload() {
-    this.load.image("platform", "assets/platform.png");
+    this.load.image("platform", "assets/ground_grass.png");
 
     // player is a sprite sheet made by 24x48 pixels
     this.load.spritesheet("player", "assets/player.png", {
@@ -44,6 +42,8 @@ class preloadGame extends Phaser.Scene {
       frameHeight: 48
     });
 
+
+    this.load.atlas('runner', 'assets/character/runner.png', 'assets/character/runner.json')
     // the coin is a sprite sheet made by 20x20 pixels
     this.load.spritesheet("coin", "assets/coin.png", {
       frameWidth: 20,
@@ -64,7 +64,7 @@ class preloadGame extends Phaser.Scene {
   }
   create() {
 
-    // setting player animation
+    // // setting player animation
     this.anims.create({
       key: "run",
       frames: this.anims.generateFrameNumbers("player", {
@@ -74,6 +74,20 @@ class preloadGame extends Phaser.Scene {
       frameRate: 8,
       repeat: -1
     });
+
+    this.anims.create({
+      key: 'runner', // name of this animation
+      // helper to generate frames
+      frames: this.anims.generateFrameNames('runner', {
+        start: 1,
+        end: 6,
+        prefix: 'runner',
+        zeroPad: 2,
+        suffix: '.png'
+      }),
+      frameRate: 20,
+      repeat: -1 // -1 to loop forever
+    })
 
     // setting coin animation
     this.anims.create({
@@ -173,30 +187,49 @@ class playGame extends Phaser.Scene {
     this.addedPlatforms = 0;
 
     // number of consecutive jumps made by the player so far
-    this.playerJumps = 0;
 
+
+    this.runnerJumps = 0;
     // adding a platform to the game, the arguments are platform width, x position and y position
-    this.addPlatform(game.config.width, game.config.width / 2, game.config.height * gameOptions.platformVerticalLimit[1]);
+    this.addPlatform(this.scale.width, this.scale.width / 2, this.scale.height * gameOptions.platformVerticalLimit[1]);
+
+
+    // const runner = this.physics.add.sprite(
+    //   width * 0.2,
+    //   height * 0.3,
+    //   'runner', // atlas key given in preload()
+    //   'runner01.png'
+    // ).play('runner')
 
     // adding the player;
-    this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height * 0.7, "player");
-    this.player.setGravityY(gameOptions.playerGravity);
-    this.player.setDepth(2);
+    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.68, "runner")
+    this.runner.setDepth(2)
+    this.runner.setGravityY(gameOptions.playerGravity)
+
 
     // the player is not dying
     this.dying = false;
 
     // setting collisions between the player and the platform group
-    this.platformCollider = this.physics.add.collider(this.player, this.platformGroup, function () {
+    this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
 
       // play "run" animation if the player is on a platform
-      if (!this.player.anims.isPlaying) {
-        this.player.anims.play("run");
+      if (!this.runner.anims.isPlaying) {
+        this.runner.anims.play("runner");
+      }
+    }, null, this);
+
+
+    this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
+
+      // play "run" animation if the player is on a platform
+      if (!this.runner.anims.isPlaying) {
+        this.runner.anims.play("run");
       }
     }, null, this);
 
     // setting collisions between the player and the coin group
-    this.physics.add.overlap(this.player, this.coinGroup, function (player, coin) {
+    this.physics.add.overlap(this.runner, this.coinGroup, function (player, coin) {
 
       this.tweens.add({
         targets: coin,
@@ -214,12 +247,12 @@ class playGame extends Phaser.Scene {
     }, null, this);
 
     // setting collisions between the player and the fire group
-    this.physics.add.overlap(this.player, this.fireGroup, function (player, fire) {
+    this.physics.add.overlap(this.runner, this.fireGroup, function (player, fire) {
 
       this.dying = true;
-      this.player.anims.stop();
-      this.player.setFrame(2);
-      this.player.body.setVelocityY(-200);
+      this.runner.anims.stop();
+      this.runner.setFrame(2);
+      this.runner.body.setVelocityY(-200);
       this.physics.world.removeCollider(this.platformCollider);
 
     }, null, this);
@@ -231,8 +264,8 @@ class playGame extends Phaser.Scene {
   // adding mountains
   addMountains() {
     let rightmostMountain = this.getRightmostMountain();
-    if (rightmostMountain < game.config.width * 2) {
-      let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), game.config.height + Phaser.Math.Between(0, 100), "mountain");
+    if (rightmostMountain < this.scale.width * 3) {
+      let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), "mountain");
       mountain.setOrigin(0.5, 1);
       mountain.body.setVelocityX(gameOptions.mountainSpeed * -1)
       this.mountainGroup.add(mountain);
@@ -329,32 +362,32 @@ class playGame extends Phaser.Scene {
   // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   // and obviously if the player is not dying
   jump() {
-    if ((!this.dying) && (this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOptions.jumps))) {
-      if (this.player.body.touching.down) {
-        this.playerJumps = 0;
+    if ((!this.dying) && (this.runner.body.touching.down || (this.runnerJumps > 0 && this.runnerJumps < gameOptions.jumps))) {
+      if (this.runner.body.touching.down) {
+        this.runnerJumps = 0;
       }
-      this.player.setVelocityY(gameOptions.jumpForce * -1);
-      this.playerJumps++;
+      this.runner.setVelocityY(gameOptions.jumpForce * -1);
+      this.runnerJumps++;
 
       // stops animation
-      this.player.anims.stop();
+      this.runner.anims.stop();
     }
   }
 
   update() {
 
     // game over
-    if (this.player.y > game.config.height) {
+    if (this.runner.y > this.scale.height) {
       this.scene.start("PlayGame");
     }
 
-    this.player.x = gameOptions.playerStartPosition;
+    this.runner.x = gameOptions.playerStartPosition;
 
     // recycling platforms
-    let minDistance = game.config.width;
+    let minDistance = this.scale.width;
     let rightmostPlatformHeight = 0;
     this.platformGroup.getChildren().forEach(function (platform) {
-      let platformDistance = game.config.width - platform.x - platform.displayWidth / 2;
+      let platformDistance = this.scale.width - platform.x - platform.displayWidth / 2;
       if (platformDistance < minDistance) {
         minDistance = platformDistance;
         rightmostPlatformHeight = platform.y;
@@ -386,7 +419,7 @@ class playGame extends Phaser.Scene {
       if (mountain.x < - mountain.displayWidth) {
         let rightmostMountain = this.getRightmostMountain();
         mountain.x = rightmostMountain + Phaser.Math.Between(100, 350);
-        mountain.y = game.config.height + Phaser.Math.Between(0, 100);
+        mountain.y = this.scale.height + Phaser.Math.Between(0, 100);
         mountain.setFrame(Phaser.Math.Between(0, 3))
         if (Phaser.Math.Between(0, 1)) {
           mountain.setDepth(1);
@@ -399,10 +432,10 @@ class playGame extends Phaser.Scene {
       let nextPlatformWidth = Phaser.Math.Between(gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1]);
       let platformRandomHeight = gameOptions.platformHeighScale * Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]);
       let nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
-      let minPlatformHeight = game.config.height * gameOptions.platformVerticalLimit[0];
-      let maxPlatformHeight = game.config.height * gameOptions.platformVerticalLimit[1];
+      let minPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[0];
+      let maxPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[1];
       let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-      this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight);
+      this.addPlatform(nextPlatformWidth, this.scale.width + nextPlatformWidth / 2, nextPlatformHeight);
     }
   }
 };

@@ -8,7 +8,7 @@ const config = {
   type: Phaser.AUTO,
   width: 900,
   height: 600,
-  backgroundColor: "#5DACD8",
+  backgroundColor: 0x0c88c7,
   parent: cont,
   autoCenter: 1,
   scaleMode: 3,
@@ -25,6 +25,7 @@ const config = {
       debug: true
     }
   },
+  // scene: [preloadGame, playGame]
   scene: [Preload, GameScene]
 }
 
