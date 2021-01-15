@@ -6,8 +6,6 @@ const gameState = {
   score: 0,
 }
 
-
-
 export default class GameScene extends Scene {
   constructor() {
     super({ key: "GameScene" });
@@ -22,26 +20,17 @@ export default class GameScene extends Scene {
   }
   create() {
 
+    const width = this.scale.width
+    const height = this.scale.height
+
+
     let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'bg')
     let scaleX = this.cameras.main.width / image.width
     let scaleY = this.cameras.main.height / image.height
     let scale = Math.max(scaleX, scaleY)
     image.setScale(scale).setScrollFactor(0)
+    // this.add.tileSprite(0, 0, width, height, 'bg').setOrigin(0)
 
-
-    this.anims.create({
-      key: 'runner', // name of this animation
-      // helper to generate frames
-      frames: this.anims.generateFrameNames('runner', {
-        start: 1,
-        end: 6,
-        prefix: 'runner',
-        zeroPad: 2,
-        suffix: '.png'
-      }),
-      frameRate: 16,
-      repeat: -1 // -1 to loop forever
-    })
 
 
 
@@ -58,26 +47,28 @@ export default class GameScene extends Scene {
     }
 
 
-    const width = this.scale.width
-    const height = this.scale.height
 
-    this.add.sprite(
-      width * 0.2, // middle of screen
-      height * 0.8,
+    const runner = this.physics.add.sprite(
+      width * 0.2,
+      height * 0.3,
       'runner', // atlas key given in preload()
       'runner01.png'
     ).play('runner')
 
+    runner.setBounce(0.2);
+    runner.setCollideWorldBounds(true)
 
 
+
+    this.physics.add.collider(runner, platforms)
     // group with all active platorms.
-    // this.platformGroup = this.add.group({
+    this.platformGroup = this.add.group({
 
-    //   // once a platform is removed, it's added to the pool
-    //   removeCallback: function (platform) {
-    //     platform.scene.platformPool.add(platform)
-    //   }
-    // });
+      // once a platform is removed, it's added to the pool
+      removeCallback: function (platform) {
+        platform.scene.platformPool.add(platform)
+      }
+    });
 
     // // pool
     // this.platformPool = this.add.group({

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Preload from '../scenes/Preload';
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
 
@@ -21,7 +22,7 @@ const config = {
       debug: true
     }
   },
-  scene: [BootScene, GameScene]
+  scene: [Preload, BootScene, GameScene]
 }
 
 export default config;

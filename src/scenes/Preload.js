@@ -1,14 +1,12 @@
-import { Scene } from 'phaser';
+import Phaser from 'phaser';
 
-
-export default class BootScene extends Scene {
+export default class Preload extends Phaser.Scene {
   constructor() {
-    super({ key: "BootScene" })
+    super('Preload')
   }
 
   preload() {
     this.load.image('startbg', 'assets/startGameImg.jpg');
-
     this.load.image("bg", "assets/background.png");
     this.load.image('platform', 'assets/ground_grass.png')
     this.load.atlas('runner', 'assets/character/runner.png',
@@ -16,16 +14,8 @@ export default class BootScene extends Scene {
   }
 
   create() {
-    let centerText = (text, offset) => {
-      const x = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const y = this.cameras.main.worldView.y + this.cameras.main.height / 2 + offset;
-      const loadingText = this.add.text(x, y, text).setOrigin(0.5);
-    }
 
-    this.add.image(450, 300, 'startbg')
-    centerText('The Runner', -150)
 
-    centerText('Loading: 20%', 0)
 
     this.anims.create({
       key: 'runner', // name of this animation
@@ -40,17 +30,7 @@ export default class BootScene extends Scene {
       frameRate: 20,
       repeat: -1 // -1 to loop forever
     })
-
-
-    this.input.on('pointerup', () => {
-      this.scene.start("GameScene");
-    })
-
+    this.scene.start("Bootscene");
   }
-  update() { }
-
 
 }
-
-
-
