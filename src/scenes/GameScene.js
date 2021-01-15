@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
-import gameOptions from '../jslogic/gameOptions'
+import gameOptions from '../jslogic/gameOptions';
+import jump from '../jslogic/playerJump';
 
 const gameState = {
   score: 0,
@@ -109,7 +110,7 @@ export default class GameScene extends Scene {
 
       // play "run" animation if the player is on a platform
       if (!this.runner.anims.isPlaying) {
-        this.runner.anims.play("run");
+        this.runner.anims.play("runner");
       }
     }, null, this);
 
@@ -255,7 +256,7 @@ export default class GameScene extends Scene {
       this.runnerJumps++;
 
       // stops animation
-      this.runner.anims.stop();
+      this.runner.anims.play("jumper");
     }
   }
 

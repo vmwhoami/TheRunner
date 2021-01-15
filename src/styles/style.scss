@@ -22,19 +22,22 @@ body{
   width: 80vw;
   height: 80vh;
   background-color: rgb(0, 0, 0);
-  margin: 50px  auto 0 auto;
+  margin: 100px  auto 0 auto;
   z-index: 100;
 }
 
 #input-form {
-  border-radius: 5px;
-  padding: 20px;
-  background-color: #ff000d;
+  // border-radius: 10px;
+  padding:30px;
+  background-color: #D5151C;
 }
 #input-form input {
-  padding: 10px;
+  padding: 20px;
   font-size: 20px;
-  width: 400px;
+  width: 300px;
   border: none;
   text-align: center;
+  &:focus{
+    outline: 10px solid rgba(255, 255, 255, 0.603);
+  }
 }

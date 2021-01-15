@@ -4,4 +4,4 @@ let placeImg = (context, obj, offset) => {
   const y = context.cameras.main.worldView.y + context.cameras.main.height / 2 + offset;
   context.add.image(x, y, obj).setOrigin(0.5);
 }
-export default placeImg
+export default placeImg;

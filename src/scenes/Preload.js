@@ -29,7 +29,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   create() {
-
     this.anims.create({
       key: "burn",
       frames: this.anims.generateFrameNumbers("fire", {
@@ -61,10 +60,26 @@ export default class Preload extends Phaser.Scene {
         zeroPad: 2,
         suffix: '.png'
       }),
-      frameRate: 20,
+      frameRate: 16,
       repeat: -1
     })
     this.scene.start("GameScene");
+
+    this.anims.create({
+      key: 'jumper',
+      frames: this.anims.generateFrameNames('jumper', {
+        start: 1,
+        end: 6,
+        prefix: 'jumper',
+        zeroPad: 2,
+        suffix: '.png'
+      }),
+      frameRate: 24,
+      repeat: -1
+    })
+    this.scene.start("GameScene");
+
+
   }
 
 }
