@@ -50,7 +50,7 @@ export default class BootScene extends Scene {
 
 
   }
-  update() { }
+
 
 
 }

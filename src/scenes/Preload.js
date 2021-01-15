@@ -17,7 +17,6 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 70
     });
 
-    // the coin is a sprite sheet made by 20x20 pixels
     this.load.spritesheet("coin", "assets/coin.png", {
       frameWidth: 20,
       frameHeight: 20
@@ -31,7 +30,6 @@ export default class Preload extends Phaser.Scene {
 
   create() {
 
-
     this.anims.create({
       key: "burn",
       frames: this.anims.generateFrameNumbers("fire", {
@@ -41,8 +39,6 @@ export default class Preload extends Phaser.Scene {
       frameRate: 15,
       repeat: -1
     });
-
-
 
 
     this.anims.create({
@@ -55,9 +51,9 @@ export default class Preload extends Phaser.Scene {
       yoyo: true,
       repeat: -1
     });
+
     this.anims.create({
-      key: 'runner', // name of this animation
-      // helper to generate frames
+      key: 'runner',
       frames: this.anims.generateFrameNames('runner', {
         start: 1,
         end: 6,
@@ -66,7 +62,7 @@ export default class Preload extends Phaser.Scene {
         suffix: '.png'
       }),
       frameRate: 20,
-      repeat: -1 // -1 to loop forever
+      repeat: -1
     })
     this.scene.start("GameScene");
   }

@@ -18,15 +18,13 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      // gravity: {
-      //   y: 800
-      // },
+
       enableBody: true,
       debug: true
     }
   },
-  // scene: [preloadGame, playGame]
-  scene: [Preload, GameScene]
+
+  scene: [BootScene, Preload, GameScene]
 }
 
 export default config;

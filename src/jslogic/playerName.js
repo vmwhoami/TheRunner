@@ -1,14 +1,14 @@
 
-const playerName = (self) => {
-  const x = self.cameras.main.worldView.x + self.cameras.main.width / 2;
-  const y = self.cameras.main.worldView.y + self.cameras.main.height / 2;
+const playerName = (context) => {
+  const x = context.cameras.main.worldView.x + context.cameras.main.width / 2;
+  const y = context.cameras.main.worldView.y + context.cameras.main.height / 2;
 
-  self.nameInput = self.add.dom(x, y).createFromCache("form")
-  self.returnKey = self.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-  self.returnKey.on("down", event => {
-    let name = self.nameInput.getChildByName("name");
+  context.nameInput = context.add.dom(x, y).createFromCache("form")
+  context.returnKey = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+  context.returnKey.on("down", event => {
+    let name = context.nameInput.getChildByName("name");
     if (name.value != "") {
-      self.scene.start("GameScene");
+      context.scene.start("Preload");
     }
   });
 
