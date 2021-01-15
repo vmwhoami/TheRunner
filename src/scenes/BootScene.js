@@ -10,6 +10,7 @@ export default class BootScene extends Scene {
     this.load.image('startbg', 'assets/startGameImg.jpg');
 
     this.load.image("bg", "assets/background.png");
+    this.load.image("runnertxt", "assets/therunnertext.png")
     this.load.image('platform', 'assets/ground_grass.png')
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json')
@@ -18,16 +19,15 @@ export default class BootScene extends Scene {
 
   create() {
 
-    let centerText = (text, offset) => {
-      const x = this.cameras.main.worldView.x + this.cameras.main.width / 2;
-      const y = this.cameras.main.worldView.y + this.cameras.main.height / 2 + offset;
-      const loadingText = this.add.text(x, y, text).setOrigin(0.5);
+    let placeObject = (context, obj, offset) => {
+      const x = context.cameras.main.worldView.x + context.cameras.main.width / 2;
+      const y = context.cameras.main.worldView.y + context.cameras.main.height / 2 + offset;
+      context.add.image(x, y, obj).setOrigin(0.5);
     }
 
-    this.add.image(450, 300, 'startbg')
-    centerText('The Runner', -150)
+    placeObject(this, 'startbg', 0)
+    placeObject(this, 'runnertxt', -200)
 
-    centerText('Loading: 20%', 0)
 
     this.anims.create({
       key: 'runner', // name of this animation

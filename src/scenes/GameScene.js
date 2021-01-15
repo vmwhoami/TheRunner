@@ -11,13 +11,9 @@ export default class GameScene extends Scene {
     super({ key: "GameScene" });
   }
 
-  // preload() {
-  //   // this.load.image("bg", "assets/cartoonsky.png");
+  preload() {
 
-  //   // this.load.image('platform', 'assets/ground_grass.png')
-  //   // this.load.atlas('runner', 'assets/character/runner.png',
-  //   //   'assets/character/runner.json')
-  // }
+  }
   create() {
 
     // group with all active mountains.
