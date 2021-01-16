@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../jslogic/gameOptions';
-import jump from '../jslogic/playerJump';
+
 
 const gameState = {
   score: 0,
@@ -12,13 +12,13 @@ export default class GameScene extends Scene {
     super({ key: 'GameScene' });
   }
 
-  preload() {
+  // preload() {
 
-  }
+  // }
 
   create() {
     gameState.name = localGetter();
-    console.log(gameState);
+
     // group with all active mountains.
     gameState.mountainGroup = this.add.group();
 
@@ -124,7 +124,7 @@ export default class GameScene extends Scene {
     }, null, this);
 
     // setting collisions between the player and the fire group
-    this.physics.add.overlap(this.runner, this.fireGroup, function (player, fire) {
+    this.physics.add.overlap(this.runner, this.fireGroup, function () {
       gameState.dying = true;
       this.runner.anims.stop();
       this.runner.setFrame(2);

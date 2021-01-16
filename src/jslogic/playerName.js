@@ -1,3 +1,4 @@
+import Phaser from 'phaser';
 import localSetter from './localSetter';
 
 const playerName = (context) => {
@@ -6,9 +7,9 @@ const playerName = (context) => {
 
   context.nameInput = context.add.dom(x, y).createFromCache('form');
   context.returnKey = context.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-  context.returnKey.on('down', event => {
+  context.returnKey.on('down', () => {
     const name = context.nameInput.getChildByName('name');
-    if (name.value != '') {
+    if (name.value !== '') {
       localSetter(name.value);
 
       context.scene.start('Preload');
