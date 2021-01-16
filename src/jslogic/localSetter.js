@@ -1,9 +1,8 @@
 
 const localSetter = (data) => {
-  let game = 'runner'
+  const game = 'runner';
 
-  localStorage.setItem(game, JSON.stringify(data))
-
-}
+  localStorage.setItem(game, JSON.stringify(data));
+};
 
 export default localSetter;

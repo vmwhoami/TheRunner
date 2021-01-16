@@ -5,19 +5,19 @@ import jump from '../jslogic/playerJump';
 
 const gameState = {
   score: 0,
-}
+};
 
 export default class GameScene extends Scene {
   constructor() {
-    super({ key: "GameScene" });
+    super({ key: 'GameScene' });
   }
 
   preload() {
 
   }
-  create() {
 
-    gameState.name = localGetter()
+  create() {
+    gameState.name = localGetter();
     console.log(gameState);
     // group with all active mountains.
     gameState.mountainGroup = this.add.group();
@@ -26,58 +26,58 @@ export default class GameScene extends Scene {
     this.platformGroup = this.add.group({
 
       // once a platform is removed, it's added to the pool
-      removeCallback: function (platform) {
-        platform.scene.platformPool.add(platform)
-      }
+      removeCallback(platform) {
+        platform.scene.platformPool.add(platform);
+      },
     });
 
     // platform pool
     this.platformPool = this.add.group({
 
       // once a platform is removed from the pool, it's added to the active platforms group
-      removeCallback: function (platform) {
-        platform.scene.platformGroup.add(platform)
-      }
+      removeCallback(platform) {
+        platform.scene.platformGroup.add(platform);
+      },
     });
 
     // group with all active coins.
     this.coinGroup = this.add.group({
 
       // once a coin is removed, it's added to the pool
-      removeCallback: function (coin) {
-        coin.scene.coinPool.add(coin)
-      }
+      removeCallback(coin) {
+        coin.scene.coinPool.add(coin);
+      },
     });
 
     // coin pool
     this.coinPool = this.add.group({
 
       // once a coin is removed from the pool, it's added to the active coins group
-      removeCallback: function (coin) {
-        coin.scene.coinGroup.add(coin)
-      }
+      removeCallback(coin) {
+        coin.scene.coinGroup.add(coin);
+      },
     });
 
     // group with all active firecamps.
     this.fireGroup = this.add.group({
 
       // once a firecamp is removed, it's added to the pool
-      removeCallback: function (fire) {
-        fire.scene.firePool.add(fire)
-      }
+      removeCallback(fire) {
+        fire.scene.firePool.add(fire);
+      },
     });
 
     // fire pool
     this.firePool = this.add.group({
 
       // once a fire is removed from the pool, it's added to the active fire group
-      removeCallback: function (fire) {
-        fire.scene.fireGroup.add(fire)
-      }
+      removeCallback(fire) {
+        fire.scene.fireGroup.add(fire);
+      },
     });
 
     // adding a mountain
-    this.addMountains()
+    this.addMountains();
 
     // keeping track of added platforms
     this.addedPlatforms = 0;
@@ -90,9 +90,9 @@ export default class GameScene extends Scene {
     this.addPlatform(this.scale.width, this.scale.width / 2, this.scale.height * gameOptions.platformVerticalLimit[1]);
 
 
-    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.1, "runner")
-    this.runner.setDepth(2)
-    this.runner.setGravityY(gameOptions.playerGravity)
+    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.1, 'runner');
+    this.runner.setDepth(2);
+    this.runner.setGravityY(gameOptions.playerGravity);
 
 
     // the player is not dying
@@ -100,77 +100,64 @@ export default class GameScene extends Scene {
 
     // setting collisions between the player and the platform group
     this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
-
       // play "run" animation if the player is on a platform
       if (!this.runner.anims.isPlaying) {
-        this.runner.anims.play("runner");
+        this.runner.anims.play('runner');
       }
     }, null, this);
 
-
-    this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
-
-      // play "run" animation if the player is on a platform
-      if (!this.runner.anims.isPlaying) {
-        this.runner.anims.play("runner");
-      }
-    }, null, this);
 
     // setting collisions between the player and the coin group
     this.physics.add.overlap(this.runner, this.coinGroup, function (player, coin) {
-
       this.tweens.add({
         targets: coin,
-        y: coin.y - 100,
+        y: coin.y - 200,
         alpha: 0,
         duration: 800,
-        ease: "Cubic.easeOut",
+        ease: 'Cubic.easeOut',
         callbackScope: this,
-        onComplete: function () {
+        onComplete() {
           this.coinGroup.killAndHide(coin);
           this.coinGroup.remove(coin);
-        }
+        },
       });
-
     }, null, this);
 
     // setting collisions between the player and the fire group
     this.physics.add.overlap(this.runner, this.fireGroup, function (player, fire) {
-
       gameState.dying = true;
       this.runner.anims.stop();
       this.runner.setFrame(2);
       this.runner.body.setVelocityY(-200);
       this.physics.world.removeCollider(this.platformCollider);
-
     }, null, this);
 
     // checking for input
-    this.input.on("pointerdown", this.jump, this);
+    this.input.on('pointerdown', this.jump, this);
   }
 
   // adding mountains
   addMountains() {
-    let rightmostMountain = this.getRightmostMountain();
+    const rightmostMountain = this.getRightmostMountain();
     if (rightmostMountain < this.scale.width * 3) {
-      let mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), "mountain");
+      const mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), 'mountain');
       mountain.setOrigin(0.5, 1);
-      mountain.body.setVelocityX(gameOptions.mountainSpeed * -1)
+      mountain.body.setVelocityX(gameOptions.mountainSpeed * -1);
       gameState.mountainGroup.add(mountain);
       if (Phaser.Math.Between(0, 1)) {
         mountain.setDepth(1);
       }
-      mountain.setFrame(Phaser.Math.Between(0, 3))
-      this.addMountains()
+      mountain.setFrame(Phaser.Math.Between(0, 3));
+      this.addMountains();
     }
   }
 
   // getting rightmost mountain x position
   getRightmostMountain() {
     let rightmostMountain = -200;
-    gameState.mountainGroup.getChildren().forEach(function (mountain) {
+    gameState.mountainGroup.getChildren().forEach((mountain) => {
       rightmostMountain = Math.max(rightmostMountain, mountain.x);
-    })
+    });
     return rightmostMountain;
   }
 
@@ -185,12 +172,11 @@ export default class GameScene extends Scene {
       platform.active = true;
       platform.visible = true;
       this.platformPool.remove(platform);
-      let newRatio = platformWidth / platform.displayWidth;
+      const newRatio = platformWidth / platform.displayWidth;
       platform.displayWidth = platformWidth;
       platform.tileScaleX = 1 / platform.scaleX;
-    }
-    else {
-      platform = this.add.tileSprite(posX, posY, platformWidth, 90, "platform");
+    } else {
+      platform = this.add.tileSprite(posX, posY, platformWidth, 80, 'platform');
       this.physics.add.existing(platform);
       platform.body.setImmovable(true);
       platform.body.setVelocityX(Phaser.Math.Between(gameOptions.platformSpeedRange[0], gameOptions.platformSpeedRange[1]) * -1);
@@ -201,23 +187,21 @@ export default class GameScene extends Scene {
 
     // if this is not the starting platform...
     if (this.addedPlatforms > 1) {
-
       // is there a coin over the platform?
       if (Phaser.Math.Between(1, 100) <= gameOptions.coinPercent) {
         if (this.coinPool.getLength()) {
-          let coin = this.coinPool.getFirst();
+          const coin = this.coinPool.getFirst();
           coin.x = posX;
           coin.y = posY - 96;
           coin.alpha = 1;
           coin.active = true;
           coin.visible = true;
           this.coinPool.remove(coin);
-        }
-        else {
-          let coin = this.physics.add.sprite(posX, posY - 96, "coin");
+        } else {
+          const coin = this.physics.add.sprite(posX, posY - 96, 'coin');
           coin.setImmovable(true);
           coin.setVelocityX(platform.body.velocity.x);
-          coin.anims.play("rotate");
+          coin.anims.play('rotate');
           coin.setDepth(2);
           this.coinGroup.add(coin);
         }
@@ -226,20 +210,19 @@ export default class GameScene extends Scene {
       // is there a fire over the platform?
       if (Phaser.Math.Between(1, 100) <= gameOptions.firePercent) {
         if (this.firePool.getLength()) {
-          let fire = this.firePool.getFirst();
+          const fire = this.firePool.getFirst();
           fire.x = posX - platformWidth / 2 + Phaser.Math.Between(1, platformWidth);
-          fire.y = posY - 46;
+          fire.y = posY - 100;
           fire.alpha = 1;
           fire.active = true;
           fire.visible = true;
           this.firePool.remove(fire);
-        }
-        else {
-          let fire = this.physics.add.sprite(posX - platformWidth / 2 + Phaser.Math.Between(1, platformWidth), posY - 46, "fire");
+        } else {
+          const fire = this.physics.add.sprite(posX - platformWidth / 2 + Phaser.Math.Between(1, platformWidth), posY - 75, 'fire');
           fire.setImmovable(true);
           fire.setVelocityX(platform.body.velocity.x);
-          fire.setSize(8, 2, true)
-          fire.anims.play("burn");
+          fire.setSize(8, 2, true);
+          fire.anims.play('burn');
           fire.setDepth(2);
           this.fireGroup.add(fire);
         }
@@ -259,15 +242,13 @@ export default class GameScene extends Scene {
 
       // stops animation
       this.runner.anims.stop();
-
     }
   }
 
   update() {
-
     // game over
     if (this.runner.y > this.scale.height) {
-      this.scene.start("GameScene");
+      this.scene.start('GameScene');
     }
 
     this.runner.x = gameOptions.playerStartPosition;
@@ -276,12 +257,12 @@ export default class GameScene extends Scene {
     let minDistance = this.scale.width;
     let rightmostPlatformHeight = 0;
     this.platformGroup.getChildren().forEach(function (platform) {
-      let platformDistance = this.scale.width - platform.x - platform.displayWidth / 2;
+      const platformDistance = this.scale.width - platform.x - platform.displayWidth / 2;
       if (platformDistance < minDistance) {
         minDistance = platformDistance;
         rightmostPlatformHeight = platform.y;
       }
-      if (platform.x < - platform.displayWidth / 2) {
+      if (platform.x < -platform.displayWidth / 2) {
         this.platformGroup.killAndHide(platform);
         this.platformGroup.remove(platform);
       }
@@ -289,7 +270,7 @@ export default class GameScene extends Scene {
 
     // recycling coins
     this.coinGroup.getChildren().forEach(function (coin) {
-      if (coin.x < - coin.displayWidth / 2) {
+      if (coin.x < -coin.displayWidth / 2) {
         this.coinGroup.killAndHide(coin);
         this.coinGroup.remove(coin);
       }
@@ -297,7 +278,7 @@ export default class GameScene extends Scene {
 
     // recycling fire
     this.fireGroup.getChildren().forEach(function (fire) {
-      if (fire.x < - fire.displayWidth / 2) {
+      if (fire.x < -fire.displayWidth / 2) {
         this.fireGroup.killAndHide(fire);
         this.fireGroup.remove(fire);
       }
@@ -305,11 +286,11 @@ export default class GameScene extends Scene {
 
     // recycling mountains
     gameState.mountainGroup.getChildren().forEach(function (mountain) {
-      if (mountain.x < - mountain.displayWidth) {
-        let rightmostMountain = this.getRightmostMountain();
+      if (mountain.x < -mountain.displayWidth) {
+        const rightmostMountain = this.getRightmostMountain();
         mountain.x = rightmostMountain + Phaser.Math.Between(100, 350);
         mountain.y = this.scale.height + Phaser.Math.Between(0, 100);
-        mountain.setFrame(Phaser.Math.Between(0, 3))
+        mountain.setFrame(Phaser.Math.Between(0, 3));
         if (Phaser.Math.Between(0, 1)) {
           mountain.setDepth(1);
         }
@@ -318,14 +299,13 @@ export default class GameScene extends Scene {
 
     // adding new platforms
     if (minDistance > this.nextPlatformDistance) {
-      let nextPlatformWidth = Phaser.Math.Between(gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1]);
-      let platformRandomHeight = gameOptions.platformHeighScale * Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]);
-      let nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
-      let minPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[0];
-      let maxPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[1];
-      let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
+      const nextPlatformWidth = Phaser.Math.Between(gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1]);
+      const platformRandomHeight = gameOptions.platformHeighScale * Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]);
+      const nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
+      const minPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[0];
+      const maxPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[1];
+      const nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
       this.addPlatform(nextPlatformWidth, this.scale.width + nextPlatformWidth / 2, nextPlatformHeight);
     }
   }
-
-};
+}

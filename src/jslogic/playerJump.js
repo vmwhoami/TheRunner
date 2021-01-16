@@ -9,6 +9,6 @@ const jump = () => {
     // stops animation
     this.runner.anims.stop();
   }
-}
+};
 
 export default jump;
