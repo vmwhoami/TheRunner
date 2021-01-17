@@ -5,6 +5,7 @@ import getRightmostMountain from '../jslogic/getRightmostMountain';
 
 const gameState = {
   score: 0,
+  lives: 3,
 };
 
 export default class GameScene extends Phaser.Scene {
@@ -21,10 +22,8 @@ export default class GameScene extends Phaser.Scene {
 
     // group with all active mountains.
     gameState.mountainGroup = this.add.group();
-
     // group with all active platforms.
     this.platformGroup = this.add.group({
-
       // once a platform is removed, it's added to the pool
       removeCallback(platform) {
         platform.scene.platformPool.add(platform);
@@ -92,7 +91,7 @@ export default class GameScene extends Phaser.Scene {
     this.addPlatform(width, width / 2, height * gameOptions.platformVerticalLimit[1]);
 
 
-    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.1, 'runner');
+    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, height * 0.1, 'runner');
     this.runner.setDepth(2);
     this.runner.setGravityY(gameOptions.playerGravity);
 
@@ -142,15 +141,21 @@ export default class GameScene extends Phaser.Scene {
   // adding mountains
   addMountains() {
     const rightmostMountain = getRightmostMountain(gameState);
-    if (rightmostMountain < this.scale.width * 3) {
-      const mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), 'mountain');
+    const { width } = this.scale;
+    const { height } = this.scale;
+    const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    if (rightmostMountain < width * 3) {
+      const posX = rightmostMountain + randomInt(100, 350);
+      const posY = height + randomInt(0, 100);
+      const mountain = this.physics.add.sprite(posX, posY, 'mountain');
       mountain.setOrigin(0.5, 1);
       mountain.body.setVelocityX(gameOptions.mountainSpeed * -1);
       gameState.mountainGroup.add(mountain);
-      if (Phaser.Math.Between(0, 1)) {
+      if (randomInt(0, 1)) {
         mountain.setDepth(1);
       }
-      mountain.setFrame(Phaser.Math.Between(0, 3));
+      mountain.setFrame(randomInt(0, 3));
       this.addMountains();
     }
   }
