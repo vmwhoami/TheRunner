@@ -8,6 +8,7 @@ const gameState = {
   score: 0,
   lives: 3,
   runnerJumps: 0,
+  addedPlatforms: 0
 };
 
 export default class GameScene extends Phaser.Scene {
@@ -15,13 +16,14 @@ export default class GameScene extends Phaser.Scene {
     super({ key: 'GameScene' });
   }
 
-  // preload() {
+  preload() {
 
-  // }
+  }
 
   create() {
-    gameState.name = localGetter();
 
+    gameState.name = localGetter();
+    this.add.text(700, 20, `${gameState.name}: ${gameState.score}`, { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#00ff00' });
     // group with all active mountains.
     gameState.mountainGroup = this.add.group();
     // group with all active platforms.
@@ -81,19 +83,13 @@ export default class GameScene extends Phaser.Scene {
 
     this.addMountains();
 
-    // keeping track of added platforms
-    this.addedPlatforms = 0;
-
-    // number of consecutive jumps made by the player so far
-
-
     // adding a platform to the game, the arguments are platform width, x position and y position
     const { width } = this.scale;
     const { height } = this.scale;
     this.addPlatform(width, width / 2, height * gameOptions.platformVerticalLimit[1]);
 
 
-    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, height * 0.1, 'runner');
+    this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, height * 0.65, 'runner');
     this.runner.setDepth(2);
     this.runner.setScale(0.6);
     this.runner.setGravityY(gameOptions.playerGravity);
@@ -166,7 +162,7 @@ export default class GameScene extends Phaser.Scene {
 
   // the core of the script: platform are added from the pool or created on the fly
   addPlatform(platformWidth, posX, posY) {
-    this.addedPlatforms += 1;
+    gameState.addedPlatforms += 1;
     let platform;
     if (this.platformPool.getLength()) {
       platform = this.platformPool.getFirst();
@@ -188,7 +184,7 @@ export default class GameScene extends Phaser.Scene {
     this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
 
     // if this is not the starting platform...
-    if (this.addedPlatforms > 1) {
+    if (gameState.addedPlatforms > 1) {
       // is there a coin over the platform?
       if (Phaser.Math.Between(1, 100) <= gameOptions.coinPercent) {
         if (this.coinPool.getLength()) {
@@ -244,7 +240,6 @@ export default class GameScene extends Phaser.Scene {
 
       // stops animation
       this.runner.anims.stop();
-
     }
   }
 
