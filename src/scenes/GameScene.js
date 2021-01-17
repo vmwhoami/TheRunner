@@ -138,14 +138,6 @@ export default class GameScene extends Phaser.Scene {
     this.input.on('pointerdown', this.jump, this);
   }
 
-  // getting rightmost mountain x position
-  // getRightmostMountain() {
-  //   let rightmostMountain = -200;
-  //   gameState.mountainGroup.getChildren().forEach((mountain) => {
-  //     rightmostMountain = Math.max(rightmostMountain, mountain.x);
-  //   });
-  //   return rightmostMountain;
-  // }
 
   // adding mountains
   addMountains() {

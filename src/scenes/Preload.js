@@ -67,7 +67,7 @@ export default class Preload extends Phaser.Scene {
 
     this.anims.create({
       key: 'jumper',
-      frames: this.anims.generateFrameNames('jumper', {
+      frames: this.anims.generateFrameNames('runner', {
         start: 1,
         end: 6,
         prefix: 'jumper',
