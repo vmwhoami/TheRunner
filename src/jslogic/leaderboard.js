@@ -19,28 +19,26 @@ const LeaderBoard = (data) => {
           referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
           body: JSON.stringify(data),
         });
-      const res = await response.json();
-      return res;
+      return await response.json();
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
-  setGame().then(key => {
-    console.log(key);
-  });
 
-  class Scoring {
-    constructor(name, score) {
-      this.key = 'Vd577d8KnhidtL176AM0';
-      this.name = name,
-      this.score = score;
-    }
+  setGame().then(key => key);
 
-    setScore(score) {
+  // class Scoring {
+  //   constructor(name, score) {
+  //     this.key = 'Vd577d8KnhidtL176AM0';
+  //     this.name = name;
+  //     this.score = score;
+  //   }
 
-    }
-  }
+  //   setScore(score) {
+  //     return score;
+  //   }
+  // }
 };
 
 export default LeaderBoard;

@@ -238,7 +238,7 @@ export default class GameScene extends Scene {
         this.runnerJumps = 0;
       }
       this.runner.setVelocityY(gameOptions.jumpForce * -1);
-      this.runnerJumps++;
+      this.runnerJumps += 1;
 
       // stops animation
       this.runner.anims.stop();
