@@ -10,8 +10,8 @@ const playerName = (context) => {
   context.returnKey.on('down', () => {
     const name = context.nameInput.getChildByName('name');
     if (name.value !== '') {
-      localSetter(name.value);
 
+      localSetter(name.value);
       context.scene.start('Preload');
     }
   });
