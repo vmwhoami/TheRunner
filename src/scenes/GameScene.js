@@ -1,13 +1,13 @@
-import { Scene } from 'phaser';
+import Phaser from 'phaser';
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../jslogic/gameOptions';
-
+import getRightmostMountain from '../jslogic/getRightmostMountain';
 
 const gameState = {
   score: 0,
 };
 
-export default class GameScene extends Scene {
+export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
   }
@@ -87,7 +87,9 @@ export default class GameScene extends Scene {
 
     this.runnerJumps = 0;
     // adding a platform to the game, the arguments are platform width, x position and y position
-    this.addPlatform(this.scale.width, this.scale.width / 2, this.scale.height * gameOptions.platformVerticalLimit[1]);
+    const { width } = this.scale;
+    const { height } = this.scale;
+    this.addPlatform(width, width / 2, height * gameOptions.platformVerticalLimit[1]);
 
 
     this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, this.scale.height * 0.1, 'runner');
@@ -99,7 +101,7 @@ export default class GameScene extends Scene {
     gameState.dying = false;
 
     // setting collisions between the player and the platform group
-    this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, function () {
+    this.platformCollider = this.physics.add.collider(this.runner, this.platformGroup, () => {
       // play "run" animation if the player is on a platform
       if (!this.runner.anims.isPlaying) {
         this.runner.anims.play('runner');
@@ -108,7 +110,7 @@ export default class GameScene extends Scene {
 
 
     // setting collisions between the player and the coin group
-    this.physics.add.overlap(this.runner, this.coinGroup, function (player, coin) {
+    this.physics.add.overlap(this.runner, this.coinGroup, (player, coin) => {
       this.tweens.add({
         targets: coin,
         y: coin.y - 200,
@@ -124,7 +126,7 @@ export default class GameScene extends Scene {
     }, null, this);
 
     // setting collisions between the player and the fire group
-    this.physics.add.overlap(this.runner, this.fireGroup, function () {
+    this.physics.add.overlap(this.runner, this.fireGroup, () => {
       gameState.dying = true;
       this.runner.anims.stop();
       this.runner.setFrame(2);
@@ -136,9 +138,18 @@ export default class GameScene extends Scene {
     this.input.on('pointerdown', this.jump, this);
   }
 
+  // getting rightmost mountain x position
+  // getRightmostMountain() {
+  //   let rightmostMountain = -200;
+  //   gameState.mountainGroup.getChildren().forEach((mountain) => {
+  //     rightmostMountain = Math.max(rightmostMountain, mountain.x);
+  //   });
+  //   return rightmostMountain;
+  // }
+
   // adding mountains
   addMountains() {
-    const rightmostMountain = this.getRightmostMountain();
+    const rightmostMountain = getRightmostMountain(gameState);
     if (rightmostMountain < this.scale.width * 3) {
       const mountain = this.physics.add.sprite(rightmostMountain + Phaser.Math.Between(100, 350), this.scale.height + Phaser.Math.Between(0, 100), 'mountain');
       mountain.setOrigin(0.5, 1);
@@ -152,18 +163,10 @@ export default class GameScene extends Scene {
     }
   }
 
-  // getting rightmost mountain x position
-  getRightmostMountain() {
-    let rightmostMountain = -200;
-    gameState.mountainGroup.getChildren().forEach((mountain) => {
-      rightmostMountain = Math.max(rightmostMountain, mountain.x);
-    });
-    return rightmostMountain;
-  }
 
   // the core of the script: platform are added from the pool or created on the fly
   addPlatform(platformWidth, posX, posY) {
-    this.addedPlatforms++;
+    this.addedPlatforms += 1;
     let platform;
     if (this.platformPool.getLength()) {
       platform = this.platformPool.getFirst();
@@ -172,7 +175,7 @@ export default class GameScene extends Scene {
       platform.active = true;
       platform.visible = true;
       this.platformPool.remove(platform);
-      const newRatio = platformWidth / platform.displayWidth;
+      // const newRatio = platformWidth / platform.displayWidth;
       platform.displayWidth = platformWidth;
       platform.tileScaleX = 1 / platform.scaleX;
     } else {
@@ -256,7 +259,7 @@ export default class GameScene extends Scene {
     // recycling platforms
     let minDistance = this.scale.width;
     let rightmostPlatformHeight = 0;
-    this.platformGroup.getChildren().forEach(function (platform) {
+    this.platformGroup.getChildren().forEach((platform) => {
       const platformDistance = this.scale.width - platform.x - platform.displayWidth / 2;
       if (platformDistance < minDistance) {
         minDistance = platformDistance;
@@ -269,7 +272,7 @@ export default class GameScene extends Scene {
     }, this);
 
     // recycling coins
-    this.coinGroup.getChildren().forEach(function (coin) {
+    this.coinGroup.getChildren().forEach((coin) => {
       if (coin.x < -coin.displayWidth / 2) {
         this.coinGroup.killAndHide(coin);
         this.coinGroup.remove(coin);
@@ -277,7 +280,7 @@ export default class GameScene extends Scene {
     }, this);
 
     // recycling fire
-    this.fireGroup.getChildren().forEach(function (fire) {
+    this.fireGroup.getChildren().forEach((fire) => {
       if (fire.x < -fire.displayWidth / 2) {
         this.fireGroup.killAndHide(fire);
         this.fireGroup.remove(fire);
@@ -285,9 +288,9 @@ export default class GameScene extends Scene {
     }, this);
 
     // recycling mountains
-    gameState.mountainGroup.getChildren().forEach(function (mountain) {
+    gameState.mountainGroup.getChildren().forEach((mountain) => {
       if (mountain.x < -mountain.displayWidth) {
-        const rightmostMountain = this.getRightmostMountain();
+        const rightmostMountain = getRightmostMountain(gameState);
         mountain.x = rightmostMountain + Phaser.Math.Between(100, 350);
         mountain.y = this.scale.height + Phaser.Math.Between(0, 100);
         mountain.setFrame(Phaser.Math.Between(0, 3));
