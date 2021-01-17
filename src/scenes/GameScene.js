@@ -2,11 +2,12 @@ import Phaser from 'phaser';
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../config/gameOptions';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
-import movingBg from '../jslogic/movingBg'
+
 
 const gameState = {
   score: 0,
   lives: 3,
+  runnerJumps: 0,
 };
 
 export default class GameScene extends Phaser.Scene {
@@ -77,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // adding a mountain
+
     this.addMountains();
 
     // keeping track of added platforms
@@ -85,7 +87,6 @@ export default class GameScene extends Phaser.Scene {
     // number of consecutive jumps made by the player so far
 
 
-    this.runnerJumps = 0;
     // adding a platform to the game, the arguments are platform width, x position and y position
     const { width } = this.scale;
     const { height } = this.scale;
@@ -94,6 +95,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.runner = this.physics.add.sprite(gameOptions.playerStartPosition, height * 0.1, 'runner');
     this.runner.setDepth(2);
+    this.runner.setScale(0.6);
     this.runner.setGravityY(gameOptions.playerGravity);
 
 
@@ -173,7 +175,6 @@ export default class GameScene extends Phaser.Scene {
       platform.active = true;
       platform.visible = true;
       this.platformPool.remove(platform);
-      // const newRatio = platformWidth / platform.displayWidth;
       platform.displayWidth = platformWidth;
       platform.tileScaleX = 1 / platform.scaleX;
     } else {
@@ -234,15 +235,16 @@ export default class GameScene extends Phaser.Scene {
   // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
   // and obviously if the player is not dying
   jump() {
-    if ((!gameState.dying) && (this.runner.body.touching.down || (this.runnerJumps > 0 && this.runnerJumps < gameOptions.jumps))) {
+    if ((!gameState.dying) && (this.runner.body.touching.down || (gameState.runnerJumps > 0 && gameState.runnerJumps < gameOptions.jumps))) {
       if (this.runner.body.touching.down) {
-        this.runnerJumps = 0;
+        gameState.runnerJumps = 0;
       }
       this.runner.setVelocityY(gameOptions.jumpForce * -1);
-      this.runnerJumps += 1;
+      gameState.runnerJumps += 1;
 
       // stops animation
       this.runner.anims.stop();
+
     }
   }
 

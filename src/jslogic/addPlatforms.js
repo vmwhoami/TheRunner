@@ -1,5 +1,4 @@
 
-
 // addPlatform(platformWidth, posX, posY) {
 //   this.addedPlatforms += 1;
 //   let platform;
