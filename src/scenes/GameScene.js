@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import localGetter from '../jslogic/localGetter';
-import gameOptions from '../jslogic/gameOptions';
+import gameOptions from '../config/gameOptions';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
+import movingBg from '../jslogic/movingBg'
 
 const gameState = {
   score: 0,
