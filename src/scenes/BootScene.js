@@ -1,9 +1,9 @@
-import { Scene } from 'phaser';
+import 'phaser';
 import playerName from '../jslogic/playerName';
 import placeImg from '../jslogic/placeImg';
 import localGetter from '../jslogic/localGetter';
 
-export default class BootScene extends Scene {
+export default class BootScene extends Phaser.Scene {
   constructor() {
     super({ key: 'BootScene' });
   }

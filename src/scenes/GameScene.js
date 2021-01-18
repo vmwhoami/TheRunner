@@ -16,11 +16,15 @@ export default class GameScene extends Phaser.Scene {
     super({ key: 'GameScene' });
   }
 
-  // preload() {
+  preload() {
 
-  // }
+  }
 
   create() {
+
+    gameState.width = this.scale.width
+    gameState.height = this.scale.height
+
     gameState.name = localGetter();
     gameState.scoreText = this.add.text(700, 20, `${gameState.name}: ${gameState.lives}`,
       { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#00ff00' });
@@ -59,6 +63,7 @@ export default class GameScene extends Phaser.Scene {
       },
     });
 
+
     this.firePool = this.add.group({
       removeCallback(fire) {
         fire.scene.fireGroup.add(fire);
@@ -67,12 +72,11 @@ export default class GameScene extends Phaser.Scene {
 
 
     this.addMountains();
-    const { width } = this.scale;
-    const { height } = this.scale;
 
-    this.addPlatform(width, width / 2, height * gameOptions.platformVerticalLimit[1]);
 
-    gameState.runner = this.physics.add.sprite(gameOptions.playerStartPosition, height * 0.65, 'runner');
+    this.addPlatform(gameState.width, gameState.width / 2, gameState.height * gameOptions.platformVerticalLimit[1]);
+
+    gameState.runner = this.physics.add.sprite(gameOptions.playerStartPosition, gameState.height * 0.65, 'runner');
     gameState.runner.setDepth(2);
     gameState.runner.setScale(0.6);
     gameState.runner.setGravityY(gameOptions.playerGravity);
@@ -115,11 +119,12 @@ export default class GameScene extends Phaser.Scene {
 
   addMountains() {
     const rightmostMountain = getRightmostMountain(gameState);
+
     const { width } = this.scale;
     const { height } = this.scale;
     const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-    if (rightmostMountain < width * 3) {
+    if (rightmostMountain < gameState.width * 3) {
       const posX = rightmostMountain + randomInt(100, 350);
       const posY = height + randomInt(0, 100);
       const mountain = this.physics.add.sprite(posX, posY, 'mountain');
@@ -228,19 +233,17 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.lives <= 0) {
       this.physics.pause();
       gameState.runner.anims.stop()
-      this.add.text(95, 250, 'Click to to restart!', { fontSize: '30px', fill: '#000000' });
+
+      this.scene.stop()
+      this.scene.start('GameOver')
     }
-
-
-    // this.input.on('pointerup', () => {
 
     gameState.runner.x = gameOptions.playerStartPosition;
 
-    // recycling platforms
-    let minDistance = this.scale.width;
+    let minDistance = gameState.width;
     let rightmostPlatformHeight = 0;
     this.platformGroup.getChildren().forEach((platform) => {
-      const platformDistance = this.scale.width - platform.x - platform.displayWidth / 2;
+      const platformDistance = gameState.width - platform.x - platform.displayWidth / 2;
       if (platformDistance < minDistance) {
         minDistance = platformDistance;
         rightmostPlatformHeight = platform.y;
@@ -288,7 +291,7 @@ export default class GameScene extends Phaser.Scene {
       const minPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[0];
       const maxPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[1];
       const nextPlatformHeight = Phaser.Math.Clamp(nextPlGap, minPlatformHeight, maxPlatformHeight);
-      this.addPlatform(nextPlWidth, this.scale.width + nextPlWidth / 2, nextPlatformHeight);
+      this.addPlatform(nextPlWidth, gameState.width + nextPlWidth / 2, nextPlatformHeight);
     }
   }
 }

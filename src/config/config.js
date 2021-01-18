@@ -2,7 +2,9 @@ import Phaser from 'phaser';
 import Preload from '../scenes/Preload';
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
+import GameOver from '../scenes/GameOver'
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+
 const cont = document.querySelector('.container');
 const config = {
   type: Phaser.AUTO,
@@ -33,7 +35,7 @@ const config = {
     ],
   },
 
-  scene: [BootScene, Preload, GameScene],
+  scene: [BootScene, Preload, GameScene, GameOver],
 };
 
 export default config;

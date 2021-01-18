@@ -8,6 +8,7 @@ export default class Preload extends Phaser.Scene {
 
   preload() {
     this.load.image('startbg', 'assets/startGameImg.jpg');
+    this.load.image('menu', 'assets/menu.jpg')
     this.load.image('bg', 'assets/background.png');
     this.load.image('platform', 'assets/ground_grass.png');
     this.load.atlas('runner', 'assets/character/runner.png',
