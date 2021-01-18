@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import playerName from '../jslogic/playerName';
 import placeImg from '../jslogic/placeImg';
-import localGetter from '../jslogic/localGetter'
+import localGetter from '../jslogic/localGetter';
 
 export default class BootScene extends Scene {
   constructor() {
@@ -22,15 +22,11 @@ export default class BootScene extends Scene {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 
-    let name = localGetter()
+    const name = localGetter();
     if (name) {
       playerName(this);
     } else {
-
-
       playerName(this);
     }
-
-
   }
 }

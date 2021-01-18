@@ -8,7 +8,7 @@ const gameState = {
   score: 0,
   lives: 3,
   runnerJumps: 0,
-  addedPlatforms: 0
+  addedPlatforms: 0,
 };
 
 export default class GameScene extends Phaser.Scene {
@@ -16,12 +16,11 @@ export default class GameScene extends Phaser.Scene {
     super({ key: 'GameScene' });
   }
 
-  preload() {
+  // preload() {
 
-  }
+  // }
 
   create() {
-
     gameState.name = localGetter();
     this.add.text(700, 20, `${gameState.name}: ${gameState.score}`, { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#00ff00' });
     // group with all active mountains.
@@ -177,11 +176,14 @@ export default class GameScene extends Phaser.Scene {
       platform = this.add.tileSprite(posX, posY, platformWidth, 80, 'platform');
       this.physics.add.existing(platform);
       platform.body.setImmovable(true);
-      platform.body.setVelocityX(Phaser.Math.Between(gameOptions.platformSpeedRange[0], gameOptions.platformSpeedRange[1]) * -1);
+      platform.body.setVelocityX(Phaser.Math.Between(gameOptions.platformSpeedRange[0],
+        gameOptions.platformSpeedRange[1]) * -1);
       platform.setDepth(2);
       this.platformGroup.add(platform);
     }
-    this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+    this.nextPlatformDistance = Phaser.Math.Between(
+      gameOptions.spawnRange[0], gameOptions.spawnRange[1],
+    );
 
     // if this is not the starting platform...
     if (gameState.addedPlatforms > 1) {
@@ -228,10 +230,14 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
+  // the player jumps when on the ground, or once in
+  // the air as long as there are jumps left and the first
+  //  jump was on the ground
   // and obviously if the player is not dying
   jump() {
-    if ((!gameState.dying) && (this.runner.body.touching.down || (gameState.runnerJumps > 0 && gameState.runnerJumps < gameOptions.jumps))) {
+    if ((!gameState.dying)
+      && (this.runner.body.touching.down
+        || (gameState.runnerJumps > 0 && gameState.runnerJumps < gameOptions.jumps))) {
       if (this.runner.body.touching.down) {
         gameState.runnerJumps = 0;
       }
@@ -297,13 +303,17 @@ export default class GameScene extends Phaser.Scene {
 
     // adding new platforms
     if (minDistance > this.nextPlatformDistance) {
-      const nextPlatformWidth = Phaser.Math.Between(gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1]);
-      const platformRandomHeight = gameOptions.platformHeighScale * Phaser.Math.Between(gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1]);
-      const nextPlatformGap = rightmostPlatformHeight + platformRandomHeight;
+      const nextPlWidth = Phaser.Math.Between(
+        gameOptions.platformSizeRange[0], gameOptions.platformSizeRange[1],
+      );
+      const platformRandomHeight = gameOptions.platformHeighScale * Phaser.Math.Between(
+        gameOptions.platformHeightRange[0], gameOptions.platformHeightRange[1],
+      );
+      const nextPlGap = rightmostPlatformHeight + platformRandomHeight;
       const minPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[0];
       const maxPlatformHeight = this.scale.height * gameOptions.platformVerticalLimit[1];
-      const nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-      this.addPlatform(nextPlatformWidth, this.scale.width + nextPlatformWidth / 2, nextPlatformHeight);
+      const nextPlatformHeight = Phaser.Math.Clamp(nextPlGap, minPlatformHeight, maxPlatformHeight);
+      this.addPlatform(nextPlWidth, this.scale.width + nextPlWidth / 2, nextPlatformHeight);
     }
   }
 }
