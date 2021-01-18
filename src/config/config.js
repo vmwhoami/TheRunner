@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import Preload from '../scenes/Preload';
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
-
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 const cont = document.querySelector('.container');
 const config = {
   type: Phaser.AUTO,
@@ -22,6 +22,15 @@ const config = {
       enableBody: true,
       debug: true,
     },
+  },
+  plugins: {
+    scene: [
+      {
+        key: 'rexUI',
+        plugin: RexUIPlugin,
+        mapping: 'rexUI',
+      },
+    ],
   },
 
   scene: [BootScene, Preload, GameScene],

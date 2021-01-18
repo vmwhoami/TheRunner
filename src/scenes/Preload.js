@@ -147,6 +147,8 @@ export default class Preload extends Phaser.Scene {
 
     // starting the loading scene
 
+    this.scene.stop('Preload');
+
     this.scene.start('GameScene');
   }
 }
