@@ -26,6 +26,8 @@ export default class BootScene extends Scene {
     if (name) {
       playerName(this);
     } else {
+
+
       playerName(this);
     }
 

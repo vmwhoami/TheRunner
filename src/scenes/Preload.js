@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import placeImg from '../jslogic/placeImg';
 
 export default class Preload extends Phaser.Scene {
   constructor() {
@@ -6,67 +7,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload() {
-
-    let progressBar = this.add.graphics();
-    let progressBox = this.add.graphics();
-    progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
-
-    let width = this.cameras.main.width;
-    let height = this.cameras.main.height;
-    let loadingText = this.make.text({
-      x: width / 2,
-      y: height / 2 - 50,
-      text: 'Loading...',
-      style: {
-        font: '20px monospace',
-        fill: '#ffffff'
-      }
-    });
-    loadingText.setOrigin(0.5, 0.5);
-
-    let percentText = this.make.text({
-      x: width / 2,
-      y: height / 2 - 5,
-      text: '0%',
-      style: {
-        font: '18px monospace',
-        fill: '#ffffff'
-      }
-    });
-    percentText.setOrigin(0.5, 0.5);
-
-    let assetText = this.make.text({
-      x: width / 2,
-      y: height / 2 + 50,
-      text: '',
-      style: {
-        font: '18px monospace',
-        fill: '#ffffff'
-      }
-    });
-
-    assetText.setOrigin(0.5, 0.5);
-
-
-    this.load.on('progress', function (value) {
-      percentText.setText(parseInt(value * 100) + '%');
-      progressBar.clear();
-      progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
-    });
-
-    this.load.on('fileprogress', function (file) {
-      assetText.setText('Loading asset: ' + file.key);
-    });
-
-    this.load.on('complete', function () {
-      progressBar.destroy();
-      progressBox.destroy();
-      loadingText.destroy();
-      percentText.destroy();
-      assetText.destroy();
-    });
     this.load.image('startbg', 'assets/startGameImg.jpg');
     this.load.image('bg', 'assets/background.png');
     this.load.image('platform', 'assets/ground_grass.png');
@@ -87,9 +27,83 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 512,
       frameHeight: 512,
     });
+    placeImg(this, 'startbg', 0);
+
+
+    let width = this.cameras.main.width;
+    let height = this.cameras.main.height;
+
+    let progressBar = this.add.graphics();
+    let progressBox = this.add.graphics();
+    progressBox.fillStyle(0x222222, 0.6);
+    progressBox.fillRect(280, 270, 320, 50);
+
+
+    let loadingText = this.make.text({
+      x: width / 2,
+      y: height / 2 - 60,
+      text: 'LOADING...',
+      style: {
+        font: '25px monospace',
+        fill: '#ffffff'
+      }
+    });
+    loadingText.setOrigin(0.5, 0.5);
+
+
+    let percentText = this.make.text({
+      x: width / 2,
+      y: height / 2 - 5,
+      text: '0%',
+      style: {
+        font: '18px monospace',
+        fill: '#ffffff'
+      }
+    });
+    percentText.setOrigin(0.5, 0.5);
+
+
+    this.load.on('progress', (value) => {
+      console.log(value);
+      progressBar.clear();
+      progressBar.fillStyle(0xffffff, 1);
+      progressBar.fillRect(290, 280, 300 * value, 30);
+      percentText.setText(parseInt(value * 100) + '%');
+    });
+
+    var assetText = this.make.text({
+      x: width / 2,
+      y: height / 2 + 50,
+      text: '',
+      style: {
+        font: '18px monospace',
+        fill: '#ffffff'
+      }
+    });
+    assetText.setOrigin(0.5, 0.5);
+
+    this.load.on('fileprogress', (file) => {
+
+      assetText.setText('Loading asset: ' + file.key);
+    });
+
+    this.load.on('complete', () => {
+
+
+      progressBar.destroy();
+      progressBox.destroy();
+      loadingText.destroy()
+      assetText.destroy();
+    });
+
+
+
   }
 
   create() {
+
+
+
     this.anims.create({
       key: 'burn',
       frames: this.anims.generateFrameNumbers('fire', {
@@ -142,11 +156,7 @@ export default class Preload extends Phaser.Scene {
 
     //starting the loading scene
 
-
-    // this.load.image('logo', 'zenvalogo.png');
-    // for (let i = 0; i < 5000; i++) {
-    //   this.load.image('logo' + i, 'zenvalogo.png');
-    // }
+    this.scene.start('GameScene')
 
   }
 
