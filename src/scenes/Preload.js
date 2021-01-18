@@ -14,6 +14,9 @@ export default class Preload extends Phaser.Scene {
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json');
 
+    this.load.audio("bgmusic", ["assets/heromusicbg.mp3"]);
+
+
     this.load.spritesheet('fire', 'assets/fire.png', {
       frameWidth: 40,
       frameHeight: 70,
@@ -96,6 +99,9 @@ export default class Preload extends Phaser.Scene {
   }
 
   create() {
+
+
+
     this.anims.create({
       key: 'burn',
       frames: this.anims.generateFrameNumbers('fire', {

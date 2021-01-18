@@ -17,11 +17,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    gameState.music = this.sound.add("bgmusic", { loop: true, volume: 0.05 });
 
   }
 
   create() {
-
+    gameState.music.play()
     gameState.width = this.scale.width
     gameState.height = this.scale.height
 
@@ -233,7 +234,7 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.lives <= 0) {
       this.physics.pause();
       gameState.runner.anims.stop()
-
+      gameState.music.stop()
       this.scene.stop()
       this.scene.start('GameOver')
     }
