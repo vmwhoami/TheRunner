@@ -25,7 +25,7 @@ const gameOptions = {
   playerGravity: 900,
 
   // player jump force
-  jumpForce: 400,
+  jumpForce: 500,
 
   // player starting X position
   playerStartPosition: 100,
@@ -39,6 +39,7 @@ const gameOptions = {
   // % of probability a fire appears on the platform
   firePercent: 25,
 
+  score: 10
 
 };
 

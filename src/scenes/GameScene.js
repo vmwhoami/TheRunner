@@ -28,13 +28,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+
     placeImg(this, 'sky', 0);
     gameState.bgsound.play()
     gameState.width = this.scale.width
     gameState.height = this.scale.height
 
     gameState.name = localGetter();
-    gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.lives}`,
+    gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.score}`,
       { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#003300' });
 
     gameState.mountainGroup = this.add.group();
@@ -53,6 +54,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.coinGroup = this.add.group({
       removeCallback(coin) {
+
         coin.scene.coinPool.add(coin);
       },
     });
@@ -96,8 +98,11 @@ export default class GameScene extends Phaser.Scene {
     }, null, this);
 
 
-    this.physics.add.overlap(gameState.runner, this.coinGroup, (player, coin) => {
-      gameState.scoreSound.play()
+    this.physics.add.overlap(gameState.runner, this.coinGroup, (runner, coin) => {
+      gameState.scoreSound.play();
+      gameState.score += 10;
+      gameState.scoreText.setText(`${gameState.name}:  ${gameState.score}`)
+      coin.disableBody(true, true)
       this.tweens.add({
         targets: coin,
         y: coin.y - 200,
@@ -111,6 +116,11 @@ export default class GameScene extends Phaser.Scene {
         },
       });
     }, null, this);
+
+
+
+
+
 
     this.physics.add.overlap(gameState.runner, this.fireGroup, () => {
       gameState.dying = true;
@@ -240,7 +250,6 @@ export default class GameScene extends Phaser.Scene {
       gameState.bgsound.stop()
       gameState.dieSoundfall.play()
       this.scene.start('GameScene')
-
     }
 
     if (gameState.lives <= 0) {

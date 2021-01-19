@@ -6,6 +6,8 @@ export default class GameOver extends Phaser.Scene {
     super('GameOver')
   }
   preload() {
+    this.music = this.sound.add("bgmusic", { loop: true, volume: 0.06 });
+
     this.game.sound.stopAll()
     placeImg(this, 'menu', 0);
     const width = this.scale.width
@@ -14,5 +16,7 @@ export default class GameOver extends Phaser.Scene {
     gameOver.setOrigin(.5, .5)
   }
 
-  create() { }
+  create() {
+    this.music.play()
+  }
 }
