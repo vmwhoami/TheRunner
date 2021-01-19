@@ -11,7 +11,7 @@ const playerName = (context) => {
     const name = context.nameInput.getChildByName('name');
     if (name.value !== '') {
       localSetter(name.value);
-      context.music.stop()
+      context.music.stop();
       context.scene.start('GameScene');
     }
   });

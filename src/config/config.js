@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import Preload from '../scenes/Preload';
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
-import GameOver from '../scenes/GameOver'
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+import GameOver from '../scenes/GameOver';
 
 const cont = document.querySelector('.container');
 const config = {

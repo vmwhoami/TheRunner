@@ -39,7 +39,7 @@ const gameOptions = {
   // % of probability a fire appears on the platform
   firePercent: 25,
 
-  score: 10
+  score: 10,
 
 };
 

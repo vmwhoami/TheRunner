@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import placeImg from '../jslogic/placeImg';
+// import placeImg from '../jslogic/placeImg';
 
 export default class Preload extends Phaser.Scene {
   constructor() {
@@ -8,20 +8,20 @@ export default class Preload extends Phaser.Scene {
 
   preload() {
     this.load.image('startbg', 'assets/startGameImg.jpg');
-    this.load.image('sky', 'assets/cartoonsky.png')
-    this.load.image('menu', 'assets/menu.jpg')
+    this.load.image('sky', 'assets/cartoonsky.png');
+    this.load.image('menu', 'assets/menu.jpg');
     this.load.image('bg', 'assets/background.png');
     this.load.image('platform', 'assets/ground_grass.png');
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json');
     this.load.image('runnertxt', 'assets/therunnertext.png');
     this.load.html('form', 'assets/form.html');
-    this.load.audio("bgmusic", ["assets/heromusicbg.mp3"]);
-    this.load.audio("jumpsound", ["assets/jump.mp3"]);
-    this.load.audio("diesound", ["assets/dievoice1.mp3"]);
-    this.load.audio("diesfallsound", ["assets/dievoice.mp3"]);
-    this.load.audio("run!", ["assets/Run!.mp3"]);
-    this.load.audio("score", ["assets/score.wav"]);
+    this.load.audio('bgmusic', ['assets/heromusicbg.mp3']);
+    this.load.audio('jumpsound', ['assets/jump.mp3']);
+    this.load.audio('diesound', ['assets/dievoice1.mp3']);
+    this.load.audio('diesfallsound', ['assets/dievoice.mp3']);
+    this.load.audio('run!', ['assets/Run!.mp3']);
+    this.load.audio('score', ['assets/score.wav']);
 
 
     this.load.spritesheet('fire', 'assets/fire.png', {
@@ -38,8 +38,6 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 512,
       frameHeight: 512,
     });
-
-
 
 
     const { width } = this.cameras.main;
@@ -107,7 +105,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   create() {
-
     this.anims.create({
       key: 'burn',
       frames: this.anims.generateFrameNumbers('fire', {

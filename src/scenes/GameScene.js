@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../config/gameOptions';
-import placeImg from '../jslogic/placeImg'
+import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
 
 
@@ -18,21 +18,20 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.2 });
-    gameState.dieSound = this.sound.add("diesound", { loop: false, volume: 0.5 });
+    gameState.jumpSound = this.sound.add('jumpsound', { loop: false, volume: 0.2 });
+    gameState.dieSound = this.sound.add('diesound', { loop: false, volume: 0.5 });
     gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.5 });
 
-    gameState.scoreSound = this.sound.add("score", { loop: false, volume: 0.5 });
-    gameState.bgsound = this.sound.add("run!", { loop: true, volume: 0.1 });
-    gameState.space = this.input.keyboard.addKey('SPACE')
+    gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
+    gameState.bgsound = this.sound.add('run!', { loop: true, volume: 0.1 });
+    gameState.space = this.input.keyboard.addKey('SPACE');
   }
 
   create() {
-
     placeImg(this, 'sky', 0);
-    gameState.bgsound.play()
-    gameState.width = this.scale.width
-    gameState.height = this.scale.height
+    gameState.bgsound.play();
+    gameState.width = this.scale.width;
+    gameState.height = this.scale.height;
 
     gameState.name = localGetter();
     gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.score}`,
@@ -54,7 +53,6 @@ export default class GameScene extends Phaser.Scene {
 
     this.coinGroup = this.add.group({
       removeCallback(coin) {
-
         coin.scene.coinPool.add(coin);
       },
     });
@@ -83,7 +81,8 @@ export default class GameScene extends Phaser.Scene {
     this.addMountains();
 
 
-    this.addPlatform(gameState.width, gameState.width / 2, gameState.height * gameOptions.platformVerticalLimit[1]);
+    this.addPlatform(gameState.width,
+      gameState.width / 2, gameState.height * gameOptions.platformVerticalLimit[1]);
 
     gameState.runner = this.physics.add.sprite(gameOptions.playerStartPosition, gameState.height * 0.65, 'runner');
     gameState.runner.setDepth(2);
@@ -101,8 +100,8 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(gameState.runner, this.coinGroup, (runner, coin) => {
       gameState.scoreSound.play();
       gameState.score += 10;
-      gameState.scoreText.setText(`${gameState.name}:  ${gameState.score}`)
-      coin.disableBody(true, true)
+      gameState.scoreText.setText(`${gameState.name}:  ${gameState.score}`);
+      coin.disableBody(true, true);
       this.tweens.add({
         targets: coin,
         y: coin.y - 200,
@@ -118,27 +117,23 @@ export default class GameScene extends Phaser.Scene {
     }, null, this);
 
 
-
-
-
-
     this.physics.add.overlap(gameState.runner, this.fireGroup, () => {
       gameState.dying = true;
-      gameState.dieSound.play()
+      gameState.dieSound.play();
       gameState.runner.anims.stop();
       gameState.runner.setFrame(1);
       gameState.runner.body.setVelocityY(-200);
       this.physics.world.removeCollider(this.platformCollider);
     }, null, this);
 
-    this.input.on('pointerdown', this.jump, this);
+    // this.input.on('pointerdown', this.jump, this);
     gameState.space.on('down', this.jump, this);
   }
 
 
   addMountains() {
     const rightmostMountain = getRightmostMountain(gameState);
-    const { width } = this.scale;
+
     const { height } = this.scale;
     const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -186,7 +181,6 @@ export default class GameScene extends Phaser.Scene {
 
 
     if (gameState.addedPlatforms > 1) {
-
       if (Phaser.Math.Between(1, 100) <= gameOptions.coinPercent) {
         if (this.coinPool.getLength()) {
           const coin = this.coinPool.getFirst();
@@ -239,25 +233,24 @@ export default class GameScene extends Phaser.Scene {
       gameState.runner.setVelocityY(gameOptions.jumpForce * -1);
       gameState.runnerJumps += 1;
       gameState.runner.anims.stop();
-      gameState.jumpSound.play()
-
+      gameState.jumpSound.play();
     }
   }
 
   update() {
     if (gameState.runner.y > this.scale.height) {
       gameState.lives -= 1;
-      gameState.bgsound.stop()
-      gameState.dieSoundfall.play()
-      this.scene.start('GameScene')
+      gameState.bgsound.stop();
+      gameState.dieSoundfall.play();
+      this.scene.start('GameScene');
     }
 
     if (gameState.lives <= 0) {
-      gameState.bgsound.stop()
+      gameState.bgsound.stop();
       this.physics.pause();
-      gameState.runner.anims.stop()
-      this.scene.stop()
-      this.scene.start('GameOver')
+      gameState.runner.anims.stop();
+      this.scene.stop();
+      this.scene.start('GameOver');
     }
 
     gameState.runner.x = gameOptions.playerStartPosition;
