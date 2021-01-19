@@ -19,13 +19,13 @@ export default class BootScene extends Phaser.Scene {
 
     const { width } = this.scale;
     const { height } = this.scale;
-    let play = new Button(this, "div", 'btn', "Play", 100)
-    let replay = new Button(this, "div", 'btn', "replay", 150)
+    let play = new Button(this, "div", 'btn', "replay", 100)
+    let replay = new Button(this, "div", 'btn', "Leaderboard", 150)
 
-
+    let changeName = new Button(this, "div", 'btn', "Change Name", 0)
     const name = localGetter();
     if (name) {
-      playerName(this);
+
     } else {
       playerName(this);
     }
