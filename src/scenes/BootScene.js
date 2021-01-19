@@ -9,16 +9,12 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('startbg', 'assets/startGameImg.jpg');
-    this.load.image('bg', 'assets/background.png');
-    this.load.image('runnertxt', 'assets/therunnertext.png');
-    this.load.image('platform', 'assets/ground_grass.png');
-    this.load.atlas('runner', 'assets/character/runner.png',
-      'assets/character/runner.json');
-    this.load.html('form', 'assets/form.html');
+    this.music = this.sound.add("bgmusic", { loop: true, volume: 0.02 });
+    this.music.play()
   }
 
   create() {
+
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../config/gameOptions';
+import placeImg from '../jslogic/placeImg'
 import getRightmostMountain from '../jslogic/getRightmostMountain';
 
 
@@ -17,17 +18,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    gameState.music = this.sound.add("bgmusic", { loop: true, volume: 0.05 });
 
   }
 
   create() {
-    gameState.music.play()
+    placeImg(this, 'sky', 0);
+
     gameState.width = this.scale.width
     gameState.height = this.scale.height
 
     gameState.name = localGetter();
-    gameState.scoreText = this.add.text(700, 20, `${gameState.name}: ${gameState.lives}`,
+    gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.lives}`,
       { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#00ff00' });
 
 
@@ -120,7 +121,6 @@ export default class GameScene extends Phaser.Scene {
 
   addMountains() {
     const rightmostMountain = getRightmostMountain(gameState);
-
     const { width } = this.scale;
     const { height } = this.scale;
     const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -234,7 +234,7 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.lives <= 0) {
       this.physics.pause();
       gameState.runner.anims.stop()
-      gameState.music.stop()
+      // gameState.music.stop()
       this.scene.stop()
       this.scene.start('GameOver')
     }

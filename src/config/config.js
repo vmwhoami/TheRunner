@@ -10,7 +10,7 @@ const config = {
   type: Phaser.AUTO,
   width: 900,
   height: 600,
-  backgroundColor: 0x0c88c7,
+  backgroundColor: 0x000000,
   parent: cont,
   autoCenter: 1,
   scaleMode: 3,
@@ -35,7 +35,7 @@ const config = {
     ],
   },
 
-  scene: [BootScene, Preload, GameScene, GameOver],
+  scene: [Preload, BootScene, GameScene, GameOver],
 };
 
 export default config;

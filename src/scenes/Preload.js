@@ -8,13 +8,17 @@ export default class Preload extends Phaser.Scene {
 
   preload() {
     this.load.image('startbg', 'assets/startGameImg.jpg');
+    this.load.image('sky', 'assets/cartoonsky.png')
     this.load.image('menu', 'assets/menu.jpg')
     this.load.image('bg', 'assets/background.png');
     this.load.image('platform', 'assets/ground_grass.png');
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json');
-
+    this.load.image('runnertxt', 'assets/therunnertext.png');
+    this.load.html('form', 'assets/form.html');
     this.load.audio("bgmusic", ["assets/heromusicbg.mp3"]);
+
+
 
 
     this.load.spritesheet('fire', 'assets/fire.png', {
@@ -31,7 +35,8 @@ export default class Preload extends Phaser.Scene {
       frameWidth: 512,
       frameHeight: 512,
     });
-    placeImg(this, 'startbg', 0);
+
+
 
 
     const { width } = this.cameras.main;
@@ -100,8 +105,6 @@ export default class Preload extends Phaser.Scene {
 
   create() {
 
-
-
     this.anims.create({
       key: 'burn',
       frames: this.anims.generateFrameNumbers('fire', {
@@ -154,8 +157,8 @@ export default class Preload extends Phaser.Scene {
 
     // starting the loading scene
 
-    this.scene.stop('Preload');
+    // this.scene.stop('Preload');
 
-    this.scene.start('GameScene');
+    this.scene.start('BootScene');
   }
 }
