@@ -1,16 +1,17 @@
 import Phaser from 'phaser';
+import gameState from '../config/gameState'
 import localGetter from '../jslogic/localGetter';
 import gameOptions from '../config/gameOptions';
 import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
 
 
-const gameState = {
-  score: 0,
-  lives: 3,
-  runnerJumps: 0,
-  addedPlatforms: 0,
-};
+// const gameState = {
+//   score: 0,
+//   lives: 3,
+//   runnerJumps: 0,
+//   addedPlatforms: 0,
+// };
 
 export default class GameScene extends Phaser.Scene {
   constructor() {

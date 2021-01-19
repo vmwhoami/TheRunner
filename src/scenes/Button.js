@@ -6,21 +6,24 @@ export default class Button {
     this.context = context;
     this.element = element;
     this.classname = classname;
-    this.text = text
-    this.offset = offset
-    this.width = this.width()
-    this.height = this.height()
-    this.element = this.creatElem()
-    this.addDom = this.addDom()
+    this.text = text;
+    this.offset = offset;
+    this.width = this.width();
+    this.height = this.height();
+    this.element = this.creatElem();
+    this.addDom = this.addDom();
+    return this.addDom
   }
 
   addDom() {
-    this.context.add.dom(this.width, this.height, this.element)
+    let addedtodom = this.context.add.dom(this.width, this.height, this.element)
+    return addedtodom
   }
   creatElem() {
     let el = document.createElement(this.element)
     el.className = this.classname
     el.textContent = this.text
+
     return el
   }
   width() {
