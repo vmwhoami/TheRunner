@@ -9,7 +9,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.music = this.sound.add("bgmusic", { loop: true, volume: 0.02 });
+    this.music = this.sound.add("bgmusic", { loop: true, volume: 0.06 });
     this.music.play()
   }
 

@@ -19,19 +19,21 @@ export default class GameScene extends Phaser.Scene {
 
   preload() {
     gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.2 });
+    gameState.dieSound = this.sound.add("diesound", { loop: false, volume: 0.5 });
+    gameState.scoreSound = this.sound.add("score", { loop: false, volume: 0.5 });
+    gameState.bgsound = this.sound.add("run!", { loop: true, volume: 0.1 });
     gameState.space = this.input.keyboard.addKey('SPACE')
   }
 
   create() {
     placeImg(this, 'sky', 0);
-
+    gameState.bgsound.play()
     gameState.width = this.scale.width
     gameState.height = this.scale.height
 
     gameState.name = localGetter();
     gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.lives}`,
-      { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#00ff00' });
-
+      { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#003300' });
 
     gameState.mountainGroup = this.add.group();
     this.platformGroup = this.add.group({
@@ -93,6 +95,7 @@ export default class GameScene extends Phaser.Scene {
 
 
     this.physics.add.overlap(gameState.runner, this.coinGroup, (player, coin) => {
+      gameState.scoreSound.play()
       this.tweens.add({
         targets: coin,
         y: coin.y - 200,
@@ -109,6 +112,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(gameState.runner, this.fireGroup, () => {
       gameState.dying = true;
+      gameState.dieSound.play()
       gameState.runner.anims.stop();
       gameState.runner.setFrame(1);
       gameState.runner.body.setVelocityY(-200);
@@ -231,13 +235,15 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (gameState.runner.y > this.scale.height) {
       gameState.lives -= 1;
+      gameState.bgsound.stop()
       this.scene.start('GameScene')
+
     }
 
     if (gameState.lives <= 0) {
+      gameState.bgsound.stop()
       this.physics.pause();
       gameState.runner.anims.stop()
-      // gameState.music.stop()
       this.scene.stop()
       this.scene.start('GameOver')
     }

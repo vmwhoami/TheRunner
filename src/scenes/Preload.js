@@ -19,6 +19,8 @@ export default class Preload extends Phaser.Scene {
     this.load.audio("bgmusic", ["assets/heromusicbg.mp3"]);
     this.load.audio("jumpsound", ["assets/jump.mp3"]);
     this.load.audio("diesound", ["assets/die.wav"]);
+    this.load.audio("run!", ["assets/Run!.mp3"]);
+    this.load.audio("score", ["assets/score.wav"]);
 
 
     this.load.spritesheet('fire', 'assets/fire.png', {
