@@ -1,52 +1,34 @@
-/* eslint-disable no-undef */
-import config from '../config/config';
-import 'phaser';
+
+
 
 export default class Button {
-  constructor(content, position, startScene, actualScene, scoreCondition = false, dead = false) {
-    this.content = content;
-    this.position = position;
-    this.startScene = startScene;
-    this.actualScene = actualScene;
-    this.scoreCondition = scoreCondition;
-    this.dead = dead;
+  constructor(context, element, classname, text, offset) {
+    this.context = context;
+    this.element = element;
+    this.classname = classname;
+    this.text = text
+    this.offset = offset
+    this.width = this.width()
+    this.height = this.height()
+    this.element = this.creatElem()
+    this.addDom = this.addDom()
   }
 
-  create() {
-    const button = this.actualScene.add.sprite(100, 200, 'blueButton1').setInteractive();
-    this.centerButton(button, this.position);
-    const text = this.actualScene.add.text(0, 0, this.content, { fontSize: '22px', fill: '#fff' });
-    this.centerButtonText(text, button);
-    button.on('pointerdown', () => {
-      if (this.scoreCondition) {
-        prop.gameProperty.score = prop.gameProperty.lastScore;
-      }
-
-      this.actualScene.scene.start(this.startScene);
-    });
-
-    this.actualScene.input.on('pointerover', (event, gameObjects) => {
-      gameObjects[0].setTexture('blueButton2');
-    });
-
-    this.actualScene.input.on('pointerout', (event, gameObjects) => {
-      gameObjects[0].setTexture('blueButton1');
-    });
+  addDom() {
+    this.context.add.dom(this.width, this.height, this.element)
   }
-
-  centerButton(gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(
-      gameObject,
-      this.actualScene.add
-        .zone(config.width / 2, config.height / 2 - offset * 100, config.width, config.height),
-    );
+  creatElem() {
+    let el = document.createElement(this.element)
+    el.className = this.classname
+    el.textContent = this.text
+    return el
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  centerButtonText(gameText, gameButton) {
-    Phaser.Display.Align.In.Center(
-      gameText,
-      gameButton,
-    );
+  width() {
+    const { width } = this.context.scale;
+    return width / 2
+  }
+  height() {
+    const { height } = this.context.scale;
+    return height / 2 + this.offset
   }
 }

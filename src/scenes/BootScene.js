@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import playerName from '../jslogic/playerName';
 import placeImg from '../jslogic/placeImg';
 import localGetter from '../jslogic/localGetter';
-
+import Button from './Button'
 export default class BootScene extends Phaser.Scene {
   constructor() {
     super({ key: 'BootScene' });
@@ -16,6 +16,12 @@ export default class BootScene extends Phaser.Scene {
   create() {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
+
+    const { width } = this.scale;
+    const { height } = this.scale;
+    let play = new Button(this, "div", 'btn', "Play", 100)
+    let replay = new Button(this, "div", 'btn', "replay", 150)
+
 
     const name = localGetter();
     if (name) {

@@ -41,3 +41,22 @@ body{
     outline: 10px solid rgba(255, 255, 255, 0.603);
   }
 }
+
+.btn{
+  
+  border-radius: 5px;
+  background-color: rgba(253, 253, 253, 0.1);
+  border: 5px solid #D5151C ;
+  width: 200px;
+  height: 30px;
+  color: white;
+ text-align: center;
+ text-transform: uppercase;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+ &:hover{
+  background-color:  rgba(253, 253, 253, 0.4);
+  // color: #D5151C;
+ }
+}

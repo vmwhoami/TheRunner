@@ -18,6 +18,7 @@ export default class GameOver extends Phaser.Scene {
   }
 
   create() {
+
     this.music.play();
   }
 }

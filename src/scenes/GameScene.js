@@ -126,8 +126,8 @@ export default class GameScene extends Phaser.Scene {
       this.physics.world.removeCollider(this.platformCollider);
     }, null, this);
 
-    // this.input.on('pointerdown', this.jump, this);
-    gameState.space.on('down', this.jump, this);
+    this.input.on('pointerdown', GameScene.jump, this);
+    gameState.space.on('down', GameScene.jump, this);
   }
 
 
@@ -223,7 +223,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
 
-  jump() {
+  static jump() {
     if ((!gameState.dying)
       && (gameState.runner.body.touching.down
         || (gameState.runnerJumps > 0 && gameState.runnerJumps < gameOptions.jumps))) {
