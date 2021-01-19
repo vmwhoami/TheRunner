@@ -18,8 +18,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.5 });
-
+    gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.2 });
+    gameState.space = this.input.keyboard.addKey('SPACE')
   }
 
   create() {
@@ -116,7 +116,7 @@ export default class GameScene extends Phaser.Scene {
     }, null, this);
 
     this.input.on('pointerdown', this.jump, this);
-
+    gameState.space.on('down', this.jump, this);
   }
 
 
