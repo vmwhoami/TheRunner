@@ -17,8 +17,8 @@ export default class Preload extends Phaser.Scene {
     this.load.image('runnertxt', 'assets/therunnertext.png');
     this.load.html('form', 'assets/form.html');
     this.load.audio("bgmusic", ["assets/heromusicbg.mp3"]);
-
-
+    this.load.audio("jumpsound", ["assets/jump.mp3"]);
+    this.load.audio("diesound", ["assets/die.wav"]);
 
 
     this.load.spritesheet('fire', 'assets/fire.png', {

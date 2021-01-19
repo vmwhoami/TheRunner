@@ -18,6 +18,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
+    gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.5 });
 
   }
 
@@ -222,6 +223,8 @@ export default class GameScene extends Phaser.Scene {
       gameState.runner.setVelocityY(gameOptions.jumpForce * -1);
       gameState.runnerJumps += 1;
       gameState.runner.anims.stop();
+      gameState.jumpSound.play()
+
     }
   }
 
