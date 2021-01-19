@@ -7,7 +7,7 @@ const gameOptions = {
 
   // spawn range, how far should be the rightmost platform from the right edge
   // before next platform spawns, in pixels
-  spawnRange: [80, 300],
+  spawnRange: [100, 300],
 
   // platform width range, in pixels
   platformSizeRange: [90, 300],

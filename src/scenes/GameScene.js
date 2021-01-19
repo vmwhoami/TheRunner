@@ -20,6 +20,8 @@ export default class GameScene extends Phaser.Scene {
   preload() {
     gameState.jumpSound = this.sound.add("jumpsound", { loop: false, volume: 0.2 });
     gameState.dieSound = this.sound.add("diesound", { loop: false, volume: 0.5 });
+    gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.5 });
+
     gameState.scoreSound = this.sound.add("score", { loop: false, volume: 0.5 });
     gameState.bgsound = this.sound.add("run!", { loop: true, volume: 0.1 });
     gameState.space = this.input.keyboard.addKey('SPACE')
@@ -236,6 +238,7 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.runner.y > this.scale.height) {
       gameState.lives -= 1;
       gameState.bgsound.stop()
+      gameState.dieSoundfall.play()
       this.scene.start('GameScene')
 
     }
