@@ -1,7 +1,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-const LeaderBoard = (data) => {
+
+
+const scoreSetter = (data) => {
   const key = 'Vd577d8KnhidtL176AM0';
   const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`;
   const setGame = async () => {
@@ -41,4 +43,4 @@ const LeaderBoard = (data) => {
   // }
 };
 
-export default LeaderBoard;
+export default scoreSetter;

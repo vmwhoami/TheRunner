@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Button from './Button';
 import placeImg from '../jslogic/placeImg'
+import scoreGetter from '../jslogic/scoresGetter'
 
 export default class LeaderScene extends Phaser.Scene {
   constructor() {

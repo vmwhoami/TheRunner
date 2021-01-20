@@ -34,8 +34,8 @@ export default class GameScene extends Phaser.Scene {
     gameState.width = this.scale.width;
     gameState.height = this.scale.height;
 
-    gameState.name = localGetter();
-    gameState.scoreText = this.add.text(700, 20, `${gameState.name}:  ${gameState.score}`,
+    gameState.playerName = localGetter();
+    gameState.scoreText = this.add.text(700, 20, `${gameState.playerName}:  ${gameState.score}`,
       { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#003300' });
 
     gameState.mountainGroup = this.add.group();
@@ -101,7 +101,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(gameState.runner, this.coinGroup, (runner, coin) => {
       gameState.scoreSound.play();
       gameState.score += 10;
-      gameState.scoreText.setText(`${gameState.name}:  ${gameState.score}`);
+      gameState.scoreText.setText(`${gameState.playerName}:  ${gameState.score}`);
       coin.disableBody(true, true);
       this.tweens.add({
         targets: coin,
@@ -250,6 +250,11 @@ export default class GameScene extends Phaser.Scene {
       gameState.bgsound.stop();
       this.physics.pause();
       gameState.runner.anims.stop();
+
+      //setting score 
+      console.log(gameState.playerName);
+      console.log(gameState.score);
+
       this.scene.stop();
       this.scene.start('GameOver');
     }
