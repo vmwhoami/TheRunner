@@ -34,8 +34,7 @@ export default class LeaderScene extends Phaser.Scene {
       let count = 0;
       let position = 130;
       sortedresult.forEach(result => {
-        console.log(result.user);
-        console.log(result.score);
+
         count += 1;
         let st;
         if (count < 10) {
