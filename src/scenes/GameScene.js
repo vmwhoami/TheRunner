@@ -7,7 +7,7 @@ import localGetter from '../jslogic/localGetter';
 import gameOptions from '../config/gameOptions';
 import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
-
+import { key } from '../config/key';
 import scoreSetter from '../jslogic/scoreSetter';
 // const gameState = {
 //   score: 0,
@@ -259,7 +259,7 @@ export default class GameScene extends Phaser.Scene {
         user: gameState.playerName,
         score: gameState.score,
       };
-      scoreSetter(data);
+      scoreSetter(data, key);
       gameState.score = 0;
       this.scene.stop();
       this.scene.start('GameOver');

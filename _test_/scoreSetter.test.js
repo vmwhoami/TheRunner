@@ -1,10 +1,17 @@
 import scoreSetter from '../src/jslogic/scoreSetter';
+import testingkey from '../src/config/key'
 
-jest.mock('../src/jslogic/scoreSetter');
 
+describe('The score scoreSetter should make valid api calls', () => {
 
-describe('it is se', () => {
+  let test = {
+    user: "test",
+    score: 100,
+  }
+
   it('it is setting the name and ', async () => {
-    // expect(LeaderBoard).toBeInstanceOf(Category);
+    scoreSetter(test, testingkey).then(response => {
+      expect(response).toBe("fuck of")
+    })
   });
 });

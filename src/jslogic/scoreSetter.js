@@ -1,9 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-
-const scoreSetter = async (data) => {
-  const key = 'uxP0QZWxMTfAbj9SnmcK';
+const scoreSetter = async (data, key) => {
   const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`;
   try {
     const response = await fetch(url,
