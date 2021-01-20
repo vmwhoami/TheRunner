@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Button from './Button';
+import placeImg from '../jslogic/placeImg'
 
 export default class LeaderScene extends Phaser.Scene {
   constructor() {
@@ -7,9 +8,17 @@ export default class LeaderScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('leader', 'assets/sky.jpg');
 
   }
   create() {
+
+    placeImg(this, 'leader', 0);
+    const replay = new Button(this, "div", 'btn', "replay", 100);
+    replay.addListener('click').on('click', () => {
+      this.scene.start('GameScene');
+    })
+
 
   }
 }

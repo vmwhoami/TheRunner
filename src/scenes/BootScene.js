@@ -26,6 +26,13 @@ export default class BootScene extends Phaser.Scene {
       this.scene.start('GameScene');
     })
 
+    leaderboard.addListener('click').on('click', () => {
+      this.music.stop();
+      this.scene.start('LeadeScene');
+
+    })
+
+
     changeName.addListener('click').on('click', () => {
       playerName(this);
     })

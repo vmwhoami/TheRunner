@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 
 export default class Preload extends Phaser.Scene {
   constructor() {
-    super('Preload');
+    super({ key: 'Preload' });
   }
 
   preload() {
@@ -154,10 +154,6 @@ export default class Preload extends Phaser.Scene {
       repeat: -1,
     });
 
-
-    // starting the loading scene
-
-    // this.scene.stop('Preload');
 
     this.scene.start('BootScene');
   }
