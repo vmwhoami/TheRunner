@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import playerName from '../jslogic/playerName';
 import placeImg from '../jslogic/placeImg';
 import localGetter from '../jslogic/localGetter';
-import Button from './Button'
+import Button from './Button';
+
 export default class BootScene extends Phaser.Scene {
   constructor() {
     super({ key: 'BootScene' });
@@ -17,25 +18,24 @@ export default class BootScene extends Phaser.Scene {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 
-    const replay = new Button(this, "div", 'btn', "replay", 100)
-    let leaderboard = new Button(this, "div", 'btn', "Leaderboard", 150)
-    let changeName = new Button(this, "div", 'btn', "Change Name", 0)
+    const replay = new Button(this, 'div', 'btn', 'replay', 100);
+    const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 150);
+    const changeName = new Button(this, 'div', 'btn', 'Change Name', 0);
 
     replay.addListener('click').on('click', () => {
       this.music.stop();
       this.scene.start('GameScene');
-    })
+    });
 
     leaderboard.addListener('click').on('click', () => {
       this.music.stop();
       this.scene.start('LeadeScene');
-
-    })
+    });
 
 
     changeName.addListener('click').on('click', () => {
       playerName(this);
-    })
+    });
     const name = localGetter();
     if (name) {
 

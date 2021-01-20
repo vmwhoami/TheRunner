@@ -1,30 +1,35 @@
 import Phaser from 'phaser';
 import Button from './Button';
-import placeImg from '../jslogic/placeImg'
-import scoreGetter from '../jslogic/scoresGetter'
+import placeImg from '../jslogic/placeImg';
+import scoreGetter from '../jslogic/scoresGetter';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 export default class LeaderScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'LeaderScene' })
+    super({ key: 'LeaderScene' });
   }
 
   preload() {
     this.load.image('leader', 'assets/sky.jpg');
-
   }
+
   create() {
     placeImg(this, 'leader', 0);
-    const replay = new Button(this, "div", 'btn', "replay", 100);
+    const replay = new Button(this, 'div', 'btn', 'replay', 100);
     replay.addListener('click').on('click', () => {
       this.scene.start('GameScene');
-    })
+    });
 
-    let settingScore = async () => {
-      this.add.text(350, 100, 'RANK  SCORE   NAME')
-      let response = await scoreGetter();
-      let sortedresult = response.result.sort((a, b) => (a.score > b.score ? -1 : 1));
+    const mainMenu = new Button(this, 'div', 'btn', 'Main Menu', 150);
+    mainMenu.addListener('click').on('click', () => {
+      this.scene.start('BootScene');
+    });
+
+    const settingScore = async () => {
+      this.add.text(350, 100, 'RANK  SCORE   NAME');
+      const response = await scoreGetter();
+      const sortedresult = response.result.sort((a, b) => (a.score > b.score ? -1 : 1));
 
       let count = 0;
       let position = 130;
@@ -35,24 +40,19 @@ export default class LeaderScene extends Phaser.Scene {
         let st;
         if (count < 10) {
           if (count === 1) {
-            st = 'st'
+            st = 'st';
           } else if (count === 2) {
-            st = 'nd'
+            st = 'nd';
           } else if (count > 3) {
-            st = 'th'
+            st = 'th';
           } else {
-            st = 'd'
-          };
-          this.add.text(300, position, `    ${count} ${st} ${result.score}  ${result.user}`).setTint(0xffffff);
+            st = 'd';
+          }
+          this.add.text(300, position, `    ${count}${st}   ${result.score}  ${result.user}`).setTint(0xffffff);
           position += 25;
         }
-
-
       });
-    }
-    settingScore()
-
-
-
+    };
+    settingScore();
   }
 }

@@ -2,13 +2,12 @@
 import './styles/style.scss';
 import Phaser from 'phaser';
 import config from './config/config';
-import scoreSetter from './jslogic/scoresGetter'
+import scoreSetter from './jslogic/scoresGetter';
 
 
 const g = {};
 const game = new Phaser.Game(config);
 g.game = game;
-
 
 
 // let name = "melcadaaadada";
@@ -20,11 +19,9 @@ g.game = game;
 // }
 
 
-
 // let response = async (data) => {
 //   let call = await scoreSetter(data)
 //   console.log(call);
 // }
 
 // response(a)
-

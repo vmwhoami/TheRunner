@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 
 
 const scoreSetter = async (data) => {
-  const key = 'Vd577d8KnhidtL176AM0';
+  const key = 'uxP0QZWxMTfAbj9SnmcK';
   const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`;
   try {
     const response = await fetch(url,
@@ -14,9 +14,8 @@ const scoreSetter = async (data) => {
         },
         body: JSON.stringify(data),
       });
-    let res = await response.json();
-    return res
-
+    const res = await response.json();
+    return res;
   } catch (error) {
     return error;
   }

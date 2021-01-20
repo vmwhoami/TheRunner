@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import placeImg from '../jslogic/placeImg';
-import Button from './Button'
-import gameState from '../config/gameState'
+import Button from './Button';
+import gameState from '../config/gameState';
 
 
 export default class GameOver extends Phaser.Scene {
@@ -23,20 +23,19 @@ export default class GameOver extends Phaser.Scene {
   create() {
     gameState.lives = 3;
     this.music.play();
-    const replay = new Button(this, "div", 'otherBtn', "replay", 100)
-    const leadearboard = new Button(this, "div", 'otherBtn', "leaderboard", 50)
+    const replay = new Button(this, 'div', 'otherBtn', 'replay', 100);
+    const leadearboard = new Button(this, 'div', 'otherBtn', 'leaderboard', 50);
 
     leadearboard.addListener('click').on('click', () => {
       this.music.stop();
       this.scene.start('LeaderScene');
-    })
+    });
 
 
     replay.addListener('click').on('click', () => {
       this.music.stop();
 
       this.scene.start('GameScene');
-    })
-
+    });
   }
 }

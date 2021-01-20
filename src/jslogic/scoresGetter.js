@@ -2,9 +2,8 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 
-
 const scoreGetter = async () => {
-  const key = 'Vd577d8KnhidtL176AM0';
+  const key = 'uxP0QZWxMTfAbj9SnmcK';
   const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`;
   try {
     const response = await fetch(url,
@@ -24,7 +23,6 @@ const scoreGetter = async () => {
     return error;
   }
 };
-
 
 
 export default scoreGetter;
