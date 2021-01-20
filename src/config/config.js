@@ -35,9 +35,9 @@ const config = {
       },
     ],
   },
-  // scene: [LeaderScene],
+  scene: [LeaderScene],
 
-  scene: [Preload, BootScene, GameScene, GameOver, LeaderScene],
+  // scene: [Preload, BootScene, GameScene, GameOver, LeaderScene],
 };
 
 export default config;

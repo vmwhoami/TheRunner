@@ -1,19 +1,30 @@
+
 import './styles/style.scss';
 import Phaser from 'phaser';
 import config from './config/config';
-import scoreGetter from './jslogic/scoresGetter'
-import { async } from 'regenerator-runtime';
+import scoreSetter from './jslogic/scoresGetter'
+
 
 const g = {};
 const game = new Phaser.Game(config);
-
 g.game = game;
 
 
 
-let score = async () => {
-  let scores = await scoreGetter()
-  console.log(scores.result);
-}
+// let name = "melcadaaadada";
+// let gainedscore = 100
 
-score()
+// let a = {
+//   user: name,
+//   score: gainedscore
+// }
+
+
+
+// let response = async (data) => {
+//   let call = await scoreSetter(data)
+//   console.log(call);
+// }
+
+// response(a)
+

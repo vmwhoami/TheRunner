@@ -1,3 +1,6 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import Phaser from 'phaser';
 import gameState from '../config/gameState'
 import localGetter from '../jslogic/localGetter';
@@ -5,7 +8,7 @@ import gameOptions from '../config/gameOptions';
 import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
 
-
+import scoreSetter from '../jslogic/scoreSetter'
 // const gameState = {
 //   score: 0,
 //   lives: 3,
@@ -251,9 +254,12 @@ export default class GameScene extends Phaser.Scene {
       this.physics.pause();
       gameState.runner.anims.stop();
 
-      //setting score 
-      console.log(gameState.playerName);
-      console.log(gameState.score);
+      //setting score
+      let data = {
+        user: gameState.playerName,
+        score: gameState.score
+      }
+      scoreSetter(data)
 
       this.scene.stop();
       this.scene.start('GameOver');
