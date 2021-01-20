@@ -42,9 +42,7 @@ export default class LeaderScene extends Phaser.Scene {
             st = 'th'
           } else {
             st = 'd'
-
           };
-
           this.add.text(300, position, `    ${count} ${st} ${result.score}  ${result.user}`).setTint(0xffffff);
           position += 25;
         }
