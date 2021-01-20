@@ -43,7 +43,6 @@ body{
 }
 
 .btn{
-  
   border-radius: 5px;
   background-color: rgba(253, 253, 253, 0.1);
   border: 5px solid #D5151C ;
@@ -56,7 +55,24 @@ body{
 
 
  &:hover{
+   cursor: pointer;
   background-color:  rgba(253, 253, 253, 0.4);
-  // color: #D5151C;
  }
+}
+
+.otherBtn{
+  border-radius: 5px;
+  background-color: #D5151C;
+  width: 200px;
+  height: 30px;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  &:hover{
+    cursor: pointer;
+   background-color:  rgba(253, 253, 253, 0.4);
+   color: black;
+   border: 1px solid #D5151C ;
+  }
 }

@@ -21,11 +21,20 @@ export default class GameOver extends Phaser.Scene {
   }
 
   create() {
+    gameState.lives = 3;
     this.music.play();
-    const replay = new Button(this, "div", 'btn', "replay", 100)
+    const replay = new Button(this, "div", 'otherBtn', "replay", 100)
+    const leadearboard = new Button(this, "div", 'otherBtn', "leaderboard", 50)
+
+    leadearboard.addListener('click').on('click', () => {
+      this.music.stop();
+      this.scene.start('LeaderScene');
+    })
+
+
     replay.addListener('click').on('click', () => {
       this.music.stop();
-      gameState.lives = 3;
+
       this.scene.start('GameScene');
     })
 

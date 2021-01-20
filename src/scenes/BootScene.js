@@ -17,17 +17,18 @@ export default class BootScene extends Phaser.Scene {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 
-    const { width } = this.scale;
-    const { height } = this.scale;
     const replay = new Button(this, "div", 'btn', "replay", 100)
     let leaderboard = new Button(this, "div", 'btn', "Leaderboard", 150)
-    let changeName = new Button(this, "div", 'btn', "Change Name", 50)
+    let changeName = new Button(this, "div", 'btn', "Change Name", 0)
 
     replay.addListener('click').on('click', () => {
       this.music.stop();
       this.scene.start('GameScene');
     })
-    replay.on('pointerover', () => { console.log('pointerover'); });
+
+    changeName.addListener('click').on('click', () => {
+      playerName(this);
+    })
     const name = localGetter();
     if (name) {
 

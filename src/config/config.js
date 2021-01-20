@@ -4,6 +4,7 @@ import Preload from '../scenes/Preload';
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
 import GameOver from '../scenes/GameOver';
+import LeaderScene from '../scenes/LeaderScene';
 
 const cont = document.querySelector('.container');
 const config = {
@@ -35,7 +36,7 @@ const config = {
     ],
   },
 
-  scene: [Preload, BootScene, GameScene, GameOver],
+  scene: [Preload, BootScene, GameScene, GameOver, LeaderScene],
 };
 
 export default config;
