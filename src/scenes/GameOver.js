@@ -11,7 +11,6 @@ export default class GameOver extends Phaser.Scene {
 
   preload() {
     this.music = this.sound.add('bgmusic', { loop: true, volume: 0.06 });
-
     this.game.sound.stopAll();
     placeImg(this, 'menu', 0);
     const { width } = this.scale;
@@ -21,8 +20,11 @@ export default class GameOver extends Phaser.Scene {
   }
 
   create() {
+
+    if (gameState.music) {
+      this.music.play();
+    }
     gameState.lives = 3;
-    this.music.play();
     const replay = new Button(this, 'div', 'otherBtn', 'replay', 100);
     const leadearboard = new Button(this, 'div', 'otherBtn', 'leaderboard', 50);
 
