@@ -20,7 +20,6 @@ export default class GameOver extends Phaser.Scene {
   }
 
   create() {
-
     if (gameState.music) {
       this.music.play();
     }
@@ -36,7 +35,6 @@ export default class GameOver extends Phaser.Scene {
 
     replay.addListener('click').on('click', () => {
       this.music.stop();
-
       this.scene.start('GameScene');
     });
   }

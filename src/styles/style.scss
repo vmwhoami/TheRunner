@@ -76,3 +76,9 @@ body{
    border: 1px solid #D5151C ;
   }
 }
+
+.placehold::placeholder{
+  font-size: 16px;
+  text-transform: uppercase;
+  color: red;
+}

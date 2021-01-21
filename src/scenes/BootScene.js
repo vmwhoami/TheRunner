@@ -24,7 +24,7 @@ export default class BootScene extends Phaser.Scene {
     placeImg(this, 'runnertxt', -200);
     const replay = new Button(this, 'div', 'btn', 'play', 150);
     const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 200);
-    const changeName = new Button(this, 'div', 'btn', 'Change Name', 0);
+
     const settings = new Button(this, 'div', 'btn', 'Settings', 100);
 
     settings.addListener('click').on('click', () => {
@@ -42,10 +42,9 @@ export default class BootScene extends Phaser.Scene {
     });
 
 
-    changeName.addListener('click').on('click', () => {
-      playerName(this);
-    });
+
     const name = localGetter();
+
     if (!name) {
       playerName(this);
     }

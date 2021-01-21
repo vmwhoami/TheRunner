@@ -3,7 +3,8 @@ const gameState = {
   lives: 3,
   runnerJumps: 0,
   addedPlatforms: 0,
-  music: true
+  music: true,
+  effects: true
 };
 
 export default gameState;
