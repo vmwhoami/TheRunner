@@ -35,7 +35,7 @@ export default class Preload extends Phaser.Scene {
       frameHeight: 20,
     });
 
-    this.load.spritesheet('mountain', 'assets/mountain.png', {
+    this.load.spritesheet('mountain', 'assets/buildings.png', {
       frameWidth: 512,
       frameHeight: 512,
     });

@@ -23,7 +23,7 @@ const config = {
     arcade: {
 
       enableBody: true,
-      debug: true,
+      // debug: true,
     },
   },
   plugins: {
