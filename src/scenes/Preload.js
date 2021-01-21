@@ -12,6 +12,7 @@ export default class Preload extends Phaser.Scene {
     this.load.image('menu', 'assets/menu.jpg');
     this.load.image('bg', 'assets/background.png');
     this.load.image('platform', 'assets/rocksendless.png');
+    this.load.image("heart", 'assets/heart.png')
     this.load.atlas('runner', 'assets/character/runner.png',
       'assets/character/runner.json');
     this.load.image('runnertxt', 'assets/therunnertext.png');

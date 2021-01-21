@@ -30,13 +30,11 @@ export default class GameScene extends Phaser.Scene {
     gameState.bgsound.play();
     gameState.width = this.scale.width;
     gameState.height = this.scale.height;
-    console.log(gameState.lives);
 
-    
-
-    gameState.livesText = this.add.text(20, 20, `Lives:  ${gameState.lives}`,
-      { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#ee0000' });
-
+    for (let i = gameState.lives; i > 0; i -= 1) {
+      let heart = this.add.image(30 * i, 30, 'heart').setOrigin(0.5);
+      heart.setScale(.1)
+    }
 
     gameState.playerName = localGetter();
     gameState.scoreText = this.add.text(700, 20, `${gameState.playerName}:  ${gameState.score}`,
