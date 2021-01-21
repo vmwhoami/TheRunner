@@ -19,12 +19,14 @@ export default class GameScene extends Phaser.Scene {
   preload() {
     gameState.jumpSound = this.sound.add('jumpsound', { loop: false, volume: 0.07 });
     gameState.dieSound = this.sound.add('diesound', { loop: false, volume: 0.05 });
-    gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.05 }); gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
+    gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.05 });
+    gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
     gameState.bgsound = this.sound.add('run!', { loop: true, volume: 0.01 });
     gameState.space = this.input.keyboard.addKey('SPACE');
   }
 
   create() {
+    console.log(gameState.effects);
 
     if (gameState.music) {
       gameState.bgsound.play();
@@ -106,7 +108,10 @@ export default class GameScene extends Phaser.Scene {
 
 
     this.physics.add.overlap(gameState.runner, this.coinGroup, (runner, coin) => {
-      gameState.scoreSound.play();
+      if (gameState.effects) {
+        gameState.scoreSound.play();
+      }
+
       gameState.score += 10;
       gameState.scoreText.setText(`${gameState.playerName}:  ${gameState.score}`);
       coin.disableBody(true, true);
@@ -127,7 +132,9 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(gameState.runner, this.fireGroup, () => {
       gameState.dying = true;
-      gameState.dieSound.play();
+      if (gameState.effects) {
+        gameState.dieSound.play();
+      }
       gameState.runner.anims.stop();
       gameState.runner.setFrame(1);
       gameState.runner.body.setVelocityY(-200);
@@ -241,7 +248,10 @@ export default class GameScene extends Phaser.Scene {
       gameState.runner.setVelocityY(gameOptions.jumpForce * -1);
       gameState.runnerJumps += 1;
       gameState.runner.anims.stop();
-      gameState.jumpSound.play();
+      if (gameState.effects) {
+        gameState.jumpSound.play();
+      }
+
     }
   }
 
@@ -249,7 +259,10 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.runner.y > this.scale.height) {
       gameState.lives -= 1;
       gameState.bgsound.stop();
-      gameState.dieSoundfall.play();
+      if (gameState.effects) {
+        gameState.dieSoundfall.play();
+      }
+
       this.scene.start('GameScene');
     }
 

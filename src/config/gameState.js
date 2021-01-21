@@ -4,7 +4,7 @@ const gameState = {
   runnerJumps: 0,
   addedPlatforms: 0,
   music: true,
-  effects: true
+  effects: true,
 };
 
 export default gameState;

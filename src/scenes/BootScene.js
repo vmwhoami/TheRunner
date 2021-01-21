@@ -18,8 +18,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-
-
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
     const replay = new Button(this, 'div', 'btn', 'play', 150);
@@ -40,7 +38,6 @@ export default class BootScene extends Phaser.Scene {
       this.music.stop();
       this.scene.start('LeaderScene');
     });
-
 
 
     const name = localGetter();

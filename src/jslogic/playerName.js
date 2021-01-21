@@ -11,10 +11,10 @@ const playerName = (context) => {
     const name = context.nameInput.getChildByName('name');
     if (name.value !== '') {
       localSetter(name.value);
-      name.placeholder = `Name set to ${name.value}`
-      name.classList.add('placehold')
-      name.blur()
-      name.value = ""
+      name.placeholder = `Name set to ${name.value}`;
+      name.classList.add('placehold');
+      name.blur();
+      name.value = '';
     }
   });
 };
