@@ -1,10 +1,12 @@
 import Phaser from 'phaser';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 import Preload from '../scenes/Preload';
+import LeaderScene from '../scenes/LeaderScene';
+import Settings from '../scenes/Settings'
 import BootScene from '../scenes/BootScene';
 import GameScene from '../scenes/GameScene';
 import GameOver from '../scenes/GameOver';
-import LeaderScene from '../scenes/LeaderScene';
+
 
 const cont = document.querySelector('.container');
 const config = {
@@ -37,7 +39,7 @@ const config = {
   },
   // scene: [LeaderScene],
 
-  scene: [Preload, BootScene, GameScene, GameOver, LeaderScene],
+  scene: [Preload, LeaderScene, Settings, BootScene, GameScene, GameOver],
 };
 
 export default config;

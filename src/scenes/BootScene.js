@@ -18,10 +18,16 @@ export default class BootScene extends Phaser.Scene {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 
-    const replay = new Button(this, 'div', 'btn', 'play', 100);
-    const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 150);
+    const replay = new Button(this, 'div', 'btn', 'play', 150);
+    const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 200);
     const changeName = new Button(this, 'div', 'btn', 'Change Name', 0);
+    const settings = new Button(this, 'div', 'btn', 'Settings', 100);
 
+    settings.addListener('click').on('click', () => {
+      this.music.stop();
+
+      this.scene.start('Settings');
+    });
     replay.addListener('click').on('click', () => {
       this.music.stop();
       this.scene.start('GameScene');
@@ -29,7 +35,7 @@ export default class BootScene extends Phaser.Scene {
 
     leaderboard.addListener('click').on('click', () => {
       this.music.stop();
-      this.scene.start('LeadeScene');
+      this.scene.start('LeaderScene');
     });
 
 

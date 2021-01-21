@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-// import placeImg from '../jslogic/placeImg';
+
 
 export default class Preload extends Phaser.Scene {
   constructor() {
