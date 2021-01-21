@@ -18,7 +18,7 @@ export default class BootScene extends Phaser.Scene {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
 
-    const replay = new Button(this, 'div', 'btn', 'replay', 100);
+    const replay = new Button(this, 'div', 'btn', 'play', 100);
     const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 150);
     const changeName = new Button(this, 'div', 'btn', 'Change Name', 0);
 
@@ -37,9 +37,7 @@ export default class BootScene extends Phaser.Scene {
       playerName(this);
     });
     const name = localGetter();
-    if (name) {
-
-    } else {
+    if (!name) {
       playerName(this);
     }
   }

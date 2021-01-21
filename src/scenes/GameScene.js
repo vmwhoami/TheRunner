@@ -9,12 +9,8 @@ import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
 import { key } from '../config/key';
 import scoreSetter from '../jslogic/scoreSetter';
-// const gameState = {
-//   score: 0,
-//   lives: 3,
-//   runnerJumps: 0,
-//   addedPlatforms: 0,
-// };
+
+
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -24,9 +20,7 @@ export default class GameScene extends Phaser.Scene {
   preload() {
     gameState.jumpSound = this.sound.add('jumpsound', { loop: false, volume: 0.2 });
     gameState.dieSound = this.sound.add('diesound', { loop: false, volume: 0.5 });
-    gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.5 });
-
-    gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
+    gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.5 }); gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
     gameState.bgsound = this.sound.add('run!', { loop: true, volume: 0.1 });
     gameState.space = this.input.keyboard.addKey('SPACE');
   }
@@ -36,6 +30,13 @@ export default class GameScene extends Phaser.Scene {
     gameState.bgsound.play();
     gameState.width = this.scale.width;
     gameState.height = this.scale.height;
+    console.log(gameState.lives);
+
+    
+
+    gameState.livesText = this.add.text(20, 20, `Lives:  ${gameState.lives}`,
+      { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#ee0000' });
+
 
     gameState.playerName = localGetter();
     gameState.scoreText = this.add.text(700, 20, `${gameState.playerName}:  ${gameState.score}`,
