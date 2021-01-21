@@ -26,6 +26,12 @@ export default class GameOver extends Phaser.Scene {
     gameState.lives = 3;
     const replay = new Button(this, 'div', 'otherBtn', 'replay', 100);
     const leadearboard = new Button(this, 'div', 'otherBtn', 'leaderboard', 50);
+    const mainMenu = new Button(this, 'div', 'otherBtn', 'main menu', 150);
+
+    mainMenu.addListener('click').on('click', () => {
+      this.music.stop();
+      this.scene.start('BootScene');
+    });
 
     leadearboard.addListener('click').on('click', () => {
       this.music.stop();

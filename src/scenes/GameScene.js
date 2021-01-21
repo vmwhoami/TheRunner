@@ -17,16 +17,16 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    gameState.jumpSound = this.sound.add('jumpsound', { loop: false, volume: 0.07 });
+    gameState.jumpSound = this.sound.add('jumpsound', { loop: false, volume: 0.04 });
     gameState.dieSound = this.sound.add('diesound', { loop: false, volume: 0.05 });
     gameState.dieSoundfall = this.sound.add('diesfallsound', { loop: false, volume: 0.05 });
-    gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.5 });
-    gameState.bgsound = this.sound.add('run!', { loop: true, volume: 0.01 });
+    gameState.scoreSound = this.sound.add('score', { loop: false, volume: 0.03 });
+    gameState.bgsound = this.sound.add('run!', { loop: true, volume: 0.07 });
     gameState.space = this.input.keyboard.addKey('SPACE');
   }
 
   create() {
-    console.log(gameState.effects);
+
 
     if (gameState.music) {
       gameState.bgsound.play();
@@ -258,11 +258,11 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (gameState.runner.y > this.scale.height) {
       gameState.lives -= 1;
-      gameState.bgsound.stop();
+
       if (gameState.effects) {
         gameState.dieSoundfall.play();
       }
-
+      gameState.bgsound.stop();
       this.scene.start('GameScene');
     }
 
