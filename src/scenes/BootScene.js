@@ -17,7 +17,6 @@ export default class BootScene extends Phaser.Scene {
   create() {
     placeImg(this, 'startbg', 0);
     placeImg(this, 'runnertxt', -200);
-
     const replay = new Button(this, 'div', 'btn', 'play', 150);
     const leaderboard = new Button(this, 'div', 'btn', 'Leaderboard', 200);
     const changeName = new Button(this, 'div', 'btn', 'Change Name', 0);
@@ -25,7 +24,6 @@ export default class BootScene extends Phaser.Scene {
 
     settings.addListener('click').on('click', () => {
       this.music.stop();
-
       this.scene.start('Settings');
     });
     replay.addListener('click').on('click', () => {

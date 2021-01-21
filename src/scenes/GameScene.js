@@ -11,7 +11,6 @@ import { key } from '../config/key';
 import scoreSetter from '../jslogic/scoreSetter';
 
 
-
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
@@ -32,8 +31,8 @@ export default class GameScene extends Phaser.Scene {
     gameState.height = this.scale.height;
 
     for (let i = gameState.lives; i > 0; i -= 1) {
-      let heart = this.add.image(30 * i, 30, 'heart').setOrigin(0.5);
-      heart.setScale(.1)
+      const heart = this.add.image(30 * i, 30, 'heart').setOrigin(0.5);
+      heart.setScale(0.1);
     }
 
     gameState.playerName = localGetter();
