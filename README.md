@@ -7,12 +7,13 @@
 Implementation of an Adventure Game built with the [Phaser 3](https://phaser.io/phaser3) framework.
 
 In this project, I utilize the Phaser 3 framework to build an endless runner game. It is a game in which you need to survive without falling off the platforms while also skipping fire. The player acquires points by collecting coins.
+I used Adobe Photoshop and TexturePacker to create the character and the background.
 I used local storage to persist in the player score.
 I also used the Leaderboard API to post the player's score, displaying the top 10 players on the leaderboard scene.
 
 ### How to Play
 
-You need to jump from one platform to another. To jump, either press space, or click with the left button in your mouse. Your score increases with time, and every coin is worth 10 points.
+You need to jump from one platform to another. To jump, either press space, or click with the left button in your mouse. Your score increases with every coin picked which is worth 10 points.
 
 ![screenshot](./runner.gif)
 
