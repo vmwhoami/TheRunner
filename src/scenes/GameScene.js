@@ -4,6 +4,7 @@ import 'regenerator-runtime/runtime';
 import Phaser from 'phaser';
 import gameState from '../config/gameState';
 import localGetter from '../jslogic/localGetter';
+import localSetter from '../jslogic/localSetter';
 import gameOptions from '../config/gameOptions';
 import placeImg from '../jslogic/placeImg';
 import getRightmostMountain from '../jslogic/getRightmostMountain';
@@ -42,6 +43,13 @@ export default class GameScene extends Phaser.Scene {
     }
 
     gameState.playerName = localGetter();
+    const names = ['Stinky', 'guy with small...', 'unnamed', 'I need a name', 'speedy'];
+    if (!gameState.playerName) {
+      gameState.playerName = names[Math.floor(Math.random() * names.length)];
+      localSetter(gameState.playerName);
+    }
+
+
     gameState.scoreText = this.add.text(700, 20, `${gameState.playerName}:  ${gameState.score}`,
       { fontFamily: 'Trebuchet MS', fontSize: 18, color: '#003300' });
 
