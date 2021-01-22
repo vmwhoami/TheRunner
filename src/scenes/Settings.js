@@ -14,8 +14,8 @@ export default class Settings extends Phaser.Scene {
   }
 
   create() {
-    const offOnMusic = (gameState) => gameState.music ? 'off' : 'on';
-    const offOnEffects = (gameState) => gameState.effects ? 'off' : 'on';
+    const offOnMusic = (gameState) => (gameState.music ? 'off' : 'on');
+    const offOnEffects = (gameState) => (gameState.effects ? 'off' : 'on');
 
     placeImg(this, 'settingsimg', 0);
     const changeName = new Button(this, 'div', 'otherBtn', 'Change Name', 45);

@@ -11,7 +11,7 @@ describe('The score scoreSetter should make valid api calls', () => {
       result: 'Scores updated successfuly.',
     }),
   }));
-  it('it is setting the name and the ', async () => {
+  it('Is getting a response from the server ', async () => {
     scoreSetter(test, testingkey).then(response => {
       expect(response).toStrictEqual({
         result: 'Scores updated successfuly.',
@@ -20,7 +20,7 @@ describe('The score scoreSetter should make valid api calls', () => {
   });
 
 
-  it('it is setting the name and ', async () => {
+  it('Is not supposed to have a different value ', async () => {
     scoreSetter(test, testingkey).then(response => {
       expect(response).not.toStrictEqual({
         result: 'Game with ID: 9GmKrLBObRWdbPoSjEWO added.',

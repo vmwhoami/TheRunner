@@ -26,8 +26,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-
-
     if (gameState.music) {
       gameState.bgsound.play();
     }
@@ -251,7 +249,6 @@ export default class GameScene extends Phaser.Scene {
       if (gameState.effects) {
         gameState.jumpSound.play();
       }
-
     }
   }
 

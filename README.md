@@ -6,14 +6,13 @@
 
 Implementation of an Adventure Game built with the [Phaser 3](https://phaser.io/phaser3) framework.
 
-<!-- In this project, I utilize the Phaser 3 framework to build an adventure game with four levels comprising of snowman enemy and bomb at level 4 only. The player acquires points by collecting star coins. -->
-
-<!-- I used local storage to persist player scores as he/she transitions to the next level/scene of the game.
-I also used the Leaderboard API to post the player's score, displaying the top 10 players on the leaderboard scene. -->
+In this project, I utilize the Phaser 3 framework to build an endless runner game. It is a game in which you need to survive without falling off the platforms while also skipping fire. The player acquires points by collecting coins.
+I used local storage to persist in the player score.
+I also used the Leaderboard API to post the player's score, displaying the top 10 players on the leaderboard scene.
 
 ### How to Play
 
-<!-- The player can move the player using left or right arrow keys to move the player to left or right respectively. You can use the spacebar or up arrow key for jumping. -->
+You need to jump from one platform to another. To jump, either press space, or click with the left button in your mouse. Your score increases with time, and every coin is worth 10 points.
 
 ![screenshot](./gameplay.gif)
 
@@ -35,7 +34,7 @@ I also used the Leaderboard API to post the player's score, displaying the top 1
 
 ## Live Demo
 
-[Play Game on Live Link](https://sucica.netlify.app/)
+[Play Game on Live Link](https://therunner.netlify.app/)
 
 ## Using This Project
 
@@ -46,51 +45,24 @@ I also used the Leaderboard API to post the player's score, displaying the top 1
 
 ## Installing Dependencies
 
-1. From the cloned project's directory, run `yarn install`.
+1. From the cloned project's directory, run `npm install`.
 
 ## Running The Project
 
-Once you've installed the project's dependencies, you can run the project using [Webpack Dev Server](https://github.com/webpack/webpack-dev-server).
-
-1. From your project's directory, run `yarn webpack-dev-server`.
-2. Open up your browser to `http://localhost:8080`.
-3. You should see a web page with the game interface requesting for player name. That's our game!
-4. :tada:
-
-Because you are running the project through Webpack Dev Server, any time you make a change to your source code, the browser will automatically refresh with your updated code.
+- Clone the project to your local machine;
+- `cd` into the project directory;
+- Run `npm install` to install the necessary modules;
+- To check in development mode, run `npm start`, the page will automatically load on [localhost:3000](localhost:3000).
 
 ## Testing
 
 Jest, a JavaScript testing framework was used for testing to ensure correctness of any JavaScript codebase.
-To run the test use: `yarn jest`
+To run the test use: `npm test`
 
 ## Building The Project
 
 To host the project on external server like netlify, you will need to run the webpack build command:
-`yarn webpack`
-
-### Scenes
-
-<!-- Below are the different scenes of the game:
-1. Preload Scene
-2. Player Scene
-3. Intro Scene
-4. Option Scene
-5. Credit Scene
-6. Leader Board Scene
-7. Level Scene
-8. Level 1 Scene
-9. Level 2 Scene
-10. Level 3 Scene
-11. Level 4 Scene
-12. Game Over Scene
-13. End Scene -->
-
-![screenshot](./assets/screens.jpg)
-
-## Future Implementation
-
-- Three Life-line for player
+`npm run build`
 
 ## Author
 
