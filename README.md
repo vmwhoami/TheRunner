@@ -14,11 +14,7 @@ I also used the Leaderboard API to post the player's score, displaying the top 1
 
 You need to jump from one platform to another. To jump, either press space, or click with the left button in your mouse. Your score increases with time, and every coin is worth 10 points.
 
-![screenshot](./gameplay.gif)
-
-## Video Presentation
-
-[YouTube Link](https://www.youtube.com/)
+![screenshot](./runner.gif)
 
 ## Built With
 

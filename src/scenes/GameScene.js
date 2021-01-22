@@ -268,7 +268,6 @@ export default class GameScene extends Phaser.Scene {
       this.physics.pause();
       gameState.runner.anims.stop();
 
-      // setting score
       const data = {
         user: gameState.playerName,
         score: gameState.score,

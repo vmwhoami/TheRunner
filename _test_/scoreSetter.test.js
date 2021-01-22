@@ -3,10 +3,10 @@ import testingkey from '../src/config/key';
 
 
 describe('The score scoreSetter should make valid api calls', () => {
-  test = {
+  const test = {
     name: 'Tester',
   };
-  global.fetch = jest.fn((data, key) => Promise.resolve({
+  global.fetch = jest.fn(() => Promise.resolve({
     json: () => Promise.resolve({
       result: 'Scores updated successfuly.',
     }),
@@ -18,7 +18,6 @@ describe('The score scoreSetter should make valid api calls', () => {
       });
     });
   });
-
 
   it('Is not supposed to have a different value ', async () => {
     scoreSetter(test, testingkey).then(response => {
