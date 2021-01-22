@@ -1,0 +1,30 @@
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 500,
+  backgroundColor: "c34111",
+  parent: cont,
+  autoCenter: 1,
+  scaleMode: 3,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: {
+
+      },
+      enableBody: true,
+      debug: true
+    }
+  },
+  scene: {
+    preload,
+    create,
+    update
+  }
+}
+
+const game = new Phaser.Game(config)
+
+
+//sets the colider so it won't go over the world
+gameState.codey.setCollideWorldBounds(true);

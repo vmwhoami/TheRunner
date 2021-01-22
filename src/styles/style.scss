@@ -1,0 +1,87 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: url('../assets/gamebackround.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.bg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  filter: saturate(0.6);
+  backdrop-filter: blur(5px);
+}
+
+.container {
+  width: 80vw;
+  height: 80vh;
+  background-color: rgb(0, 0, 0);
+  margin: 100px  auto 0 auto;
+  z-index: 100;
+}
+
+#input-form {
+  padding: 30px;
+  background-color: #d5151c;
+}
+
+#input-form input {
+  padding: 20px;
+  font-size: 20px;
+  width: 300px;
+  border: none;
+  text-align: center;
+
+  &:focus {
+    outline: 10px solid rgba(255, 255, 255, 0.603);
+  }
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: rgba(253, 253, 253, 0.1);
+  border: 5px solid #d5151c;
+  width: 200px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(253, 253, 253, 0.4);
+  }
+}
+
+.otherBtn {
+  border-radius: 5px;
+  background-color: #d5151c;
+  width: 200px;
+  height: 30px;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(253, 253, 253, 0.4);
+    color: black;
+    border: 1px solid #d5151c;
+  }
+}
+
+.placehold::placeholder {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: red;
+}

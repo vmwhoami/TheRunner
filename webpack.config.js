@@ -1,22 +1,37 @@
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+
 module.exports = {
-  mode: 'development',
+
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 3000
+    port: 3000,
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -32,11 +47,21 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: './src/assets', to: 'assets' },
+      ],
+    }),
+  ],
 };
